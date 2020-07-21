@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList } from "react-native";
 
 import MiniCard from "./MiniCard";
-import { imagePath } from "../utility/imagePath";
+import { imagePath } from "../../utility/imagePath";
 
 function MiniCardList({ items, ingredient, onPress }) {
   return (

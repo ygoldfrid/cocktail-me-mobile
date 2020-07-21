@@ -2,19 +2,19 @@ import React, { useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
-import { imagePath } from "../utility/imagePath";
-import cocktailsApi from "../api/cocktails";
+import api from "../api/apiService";
 import colors from "../config/colors";
+import MiniCardList from "../components/Cards/MiniCardList";
+import routes from "../navigation/routes";
 import Text from "../components/Text";
 import useApi from "./../hooks/useApi";
-import routes from "../navigation/routes";
-import MiniCardList from "../components/MiniCardList";
+import { imagePath } from "../utility/imagePath";
 
 function IngredientDetailsScreen({ navigation, route }) {
   const ingredient = route.params;
 
   const { request: loadCocktails, data: cocktails } = useApi(
-    cocktailsApi.getIngredientCocktails
+    api.getIngredientCocktails
   );
 
   useEffect(() => {

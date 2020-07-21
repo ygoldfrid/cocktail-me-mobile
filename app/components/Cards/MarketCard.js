@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Button,
-} from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
-import Text from "./Text";
-import colors from "../config/colors";
+import Text from "../Text";
+import colors from "../../config/colors";
 
-function BarCard({ title, imageUrl, thumbnailUrl, onPress }) {
+function MarketCard({ title, imageUrl, thumbnailUrl, onPress }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -35,14 +30,16 @@ function BarCard({ title, imageUrl, thumbnailUrl, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    height: 30,
-    width: "90%",
-    borderRadius: 5,
     alignItems: "center",
+    backgroundColor: colors.white,
+    borderColor: colors.primary,
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 30,
     justifyContent: "center",
+    margin: 5,
+    padding: 2,
+    width: "95%",
   },
   buttonText: {
     color: colors.primary,
@@ -74,4 +71,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default BarCard;
+export default MarketCard;

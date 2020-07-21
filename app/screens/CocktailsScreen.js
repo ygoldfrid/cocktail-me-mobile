@@ -2,19 +2,19 @@ import React, { useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
-import AppText from "../components/Text";
+import api from "../api/apiService";
 import Button from "../components/Button";
-import Card from "../components/Card";
+import Card from "../components/Cards/Card";
 import colors from "../config/colors";
-import cocktailsApi from "../api/cocktails";
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
+import Text from "../components/Text";
 import useApi from "./../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailsScreen({ navigation }) {
   const { request: loadCocktails, data: cocktails, error, loading } = useApi(
-    cocktailsApi.getCocktails
+    api.getCocktails
   );
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function CocktailsScreen({ navigation }) {
       <Screen style={styles.screen}>
         {error && (
           <>
-            <AppText>Couldn't retrieve the cocktails</AppText>
+            <Text>Couldn't retrieve the cocktails</Text>
             <Button title="Retry" onPress={loadCocktails} />
           </>
         )}

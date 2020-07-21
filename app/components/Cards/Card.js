@@ -2,10 +2,10 @@ import React from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
-import Text from "./Text";
-import colors from "../config/colors";
+import Text from "../Text";
+import colors from "../../config/colors";
 
-function Card({ title, subtitle, imageUrl, thumbnailUrl, onPress }) {
+function Card({ title, subtitle, body, imageUrl, onPress, thumbnailUrl }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -15,15 +15,16 @@ function Card({ title, subtitle, imageUrl, thumbnailUrl, onPress }) {
           preview={{ uri: thumbnailUrl }}
           uri={imageUrl}
         />
-        <View style={styles.details}>
-          <Text numberOfLines={2} style={styles.title}>
+        <View style={styles.detailsContainer}>
+          <Text numberOfLines={1} style={styles.title}>
             {title}
           </Text>
-          {subtitle !== "" && (
-            <Text numberOfLines={1} style={styles.subtitle}>
-              {subtitle}
-            </Text>
-          )}
+          <Text numberOfLines={1} style={styles.subtitle}>
+            {subtitle}
+          </Text>
+          <Text numberOfLines={2} style={styles.body}>
+            {body}
+          </Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -32,32 +33,28 @@ function Card({ title, subtitle, imageUrl, thumbnailUrl, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    borderColor: colors.primary,
-    borderRadius: 10,
-    borderWidth: 0.5,
-    height: 125,
-    marginRight: 10,
+    borderRadius: 15,
+    backgroundColor: colors.white,
+    marginBottom: 20,
     overflow: "hidden",
-    width: 70,
   },
-  details: {
-    justifyContent: "center",
-    flex: 1,
-    alignItems: "center",
-    padding: 3,
+  detailsContainer: {
+    padding: 20,
   },
   image: {
-    height: 70,
     width: "100%",
+    height: 230,
+  },
+  body: {
+    color: colors.dark,
   },
   subtitle: {
     color: colors.medium,
-    fontSize: 14,
+    marginBottom: 7,
   },
   title: {
+    fontWeight: "bold",
     color: colors.primary,
-    fontSize: 14,
-    textAlign: "center",
   },
 });
 

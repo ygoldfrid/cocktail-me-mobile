@@ -3,9 +3,9 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import colors from "../config/colors";
-import Text from "../components/Text";
+import MiniCardList from "../components/Cards/MiniCardList";
 import routes from "../navigation/routes";
-import MiniCardList from "../components/MiniCardList";
+import Text from "../components/Text";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailDetailsScreen({ navigation, route }) {
