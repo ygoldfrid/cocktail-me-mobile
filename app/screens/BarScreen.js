@@ -1,17 +1,46 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
-import useAuth from "../auth/useAuth";
-import AppText from "../components/Text";
+import ListItem from "../components/ListItem";
+import Screen from "../components/Screen";
+import { imagePath } from "../utility/imagePath";
+import ListItemSeparator from "../components/ListItemSeparator";
+import Text from "../components/Text";
+import colors from "../config/colors";
 
-function BarScreen(props) {
-  const { user } = useAuth();
-
-  return <View style={styles.container}></View>;
+function BarScreen({ route }) {
+  const bar = route.params.bar;
+  return (
+    <Screen>
+      <Text style={styles.title}>My Bar</Text>
+      <FlatList
+        data={bar}
+        keyExtractor={(ing) => ing._id.toString()}
+        renderItem={({ item }) => (
+          <ListItem
+            title={item.name}
+            imageUrl={imagePath(item.images[0].url)}
+            thumbnailUrl={imagePath(item.images[0].thumbnailUrl)}
+            onPress
+            onDelete
+          />
+        )}
+        ItemSeparatorComponent={ListItemSeparator}
+      />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  title: {
+    fontSize: 19,
+    fontWeight: "bold",
+    paddingLeft: 20,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderColor: colors.light,
+    textTransform: "uppercase",
+  },
 });
 
 export default BarScreen;

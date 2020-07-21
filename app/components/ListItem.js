@@ -1,38 +1,51 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
+import { View, StyleSheet, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { Image } from "react-native-expo-image-cache";
 
 import Text from "./Text";
 import colors from "../config/colors";
 
 function ListItem({
   title,
-  subTitle,
-  image,
+  subtitle,
+  imageUrl,
+  thumbnailUrl,
   IconComponent,
+  onDelete,
   onPress,
-  renderRightActions,
 }) {
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-        <View style={styles.container}>
-          {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
-          <View style={styles.detailsContainer}>
-            <Text numberOfLines={1} style={styles.title}>
-              {title}
+    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <View style={styles.container}>
+        {IconComponent}
+        {imageUrl && (
+          <Image
+            style={styles.image}
+            tint="light"
+            preview={{ uri: thumbnailUrl }}
+            uri={imageUrl}
+          />
+        )}
+        <View style={styles.detailsContainer}>
+          <Text numberOfLines={1} style={styles.title}>
+            {title}
+          </Text>
+          {subtitle && (
+            <Text numberOfLines={2} style={styles.subtitle}>
+              {subtitle}
             </Text>
-            {subTitle && (
-              <Text numberOfLines={2} style={styles.subTitle}>
-                {subTitle}
-              </Text>
-            )}
-          </View>
+          )}
         </View>
-      </TouchableHighlight>
-    </Swipeable>
+        {onDelete && (
+          <MaterialCommunityIcons
+            color={colors.medium}
+            name="trash-can-outline"
+            size={25}
+          />
+        )}
+      </View>
+    </TouchableHighlight>
   );
 }
 
@@ -40,7 +53,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: colors.white,
   },
   detailsContainer: {
@@ -51,13 +65,10 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    borderRadius: 35,
+    borderRadius: 10,
   },
-  subTitle: {
+  subtitle: {
     color: colors.medium,
-  },
-  title: {
-    fontWeight: "500",
   },
 });
 

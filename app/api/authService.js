@@ -1,7 +1,7 @@
-import client from "./client";
+import http from "./apiClient";
 
-const login = (email, password) => client.post("/auth", { email, password });
+const login = (email, password) => http.post("/auth", { email, password });
 
-const register = (userInfo) => client.post("/users", userInfo);
+const register = (userInfo) => http.post("/users", userInfo);
 
 export default { login, register };

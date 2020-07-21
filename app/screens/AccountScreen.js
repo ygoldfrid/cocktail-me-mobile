@@ -18,7 +18,7 @@ function AccountScreen() {
           IconComponent={
             <Icon name="account" backgroundColor={colors.medium} />
           }
-          subTitle={user.email}
+          subtitle={user.email}
         />
       </View>
       <ListItem

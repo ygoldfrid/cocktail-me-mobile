@@ -6,12 +6,11 @@ import routes from "./routes";
 import AccountScreen from "../screens/AccountScreen";
 import FeedNavigator from "./FeedNavigator";
 import BarScreen from "../screens/BarScreen";
-import MarketScreen from "../screens/MarketScreen";
 import MarketNavigator from "./MarketNavigator";
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => {
+const AppNavigator = ({ bar }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -39,6 +38,7 @@ const AppNavigator = () => {
             />
           ),
         }}
+        initialParams={{ bar }}
       />
       <Tab.Screen
         name={routes.MARKET}

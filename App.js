@@ -7,6 +7,8 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import authStorage from "./app/auth/storage";
+import useApi from "./app/hooks/useApi";
+import api from "./app/api/apiService";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -16,6 +18,8 @@ export default function App() {
   const restoreUser = async () => {
     const user = await authStorage.getUser();
     if (user) {
+      const { data } = await api.getBar();
+      setBar(data);
       setUser(user);
     }
   };
@@ -28,7 +32,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
+        {user ? <AppNavigator bar={bar} /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );
