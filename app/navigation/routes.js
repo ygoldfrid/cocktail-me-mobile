@@ -1,10 +1,10 @@
 export default Object.freeze({
-  ACCOUNT: "Account",
+  ACCOUNT: "My Account",
   BAR: "My Bar",
   COCKTAILS: "Cocktails",
-  COCKTAIL_DETAILS: "CocktailDetails",
+  COCKTAIL_DETAILS: "Cocktail Details",
   COCKTAILS: "Cocktails",
-  INGREDIENT_DETAILS: "IngredientDetails",
+  INGREDIENT_DETAILS: "Ingredient Details",
   LOGIN: "Login",
   MARKET: "Market",
   REGISTER: "Register",

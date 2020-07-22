@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 
-import Text from "./Text";
 import colors from "../config/colors";
+import Text from "./Text";
 
 function ListItem({
   title,
@@ -52,23 +52,25 @@ function ListItem({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     backgroundColor: colors.white,
+    flexDirection: "row",
+    padding: 10,
   },
   detailsContainer: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 15,
     justifyContent: "center",
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
     borderRadius: 10,
   },
   subtitle: {
     color: colors.medium,
+  },
+  title: {
+    fontSize: 18,
   },
 });
 

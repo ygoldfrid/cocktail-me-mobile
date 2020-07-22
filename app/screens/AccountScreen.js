@@ -4,15 +4,14 @@ import { StyleSheet, View } from "react-native";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
 import ListItem from "../components/ListItem";
-import Screen from "../components/Screen";
 import useAuth from "../auth/useAuth";
 
 function AccountScreen() {
   const { user, logOut } = useAuth();
 
   return (
-    <Screen style={styles.screen}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.item}>
         <ListItem
           title={user.name}
           IconComponent={
@@ -28,16 +27,17 @@ function AccountScreen() {
         }
         onPress={() => logOut()}
       />
-    </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-  },
-  screen: {
     backgroundColor: colors.light,
+    flex: 1,
+  },
+  item: {
+    marginVertical: 20,
   },
 });
 

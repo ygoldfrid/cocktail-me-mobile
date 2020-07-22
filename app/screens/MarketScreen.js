@@ -3,10 +3,9 @@ import { View, StyleSheet, FlatList } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
-import MarketCard from "../components/Cards/MarketCard";
 import colors from "../config/colors";
+import MarketCard from "../components/Cards/MarketCard";
 import routes from "../navigation/routes";
-import Screen from "./../components/Screen";
 import useApi from "./../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
 
@@ -20,7 +19,7 @@ function MarketScreen({ route, navigation }) {
   }, []);
 
   return (
-    <Screen>
+    <>
       <ActivityIndicator
         visible={loading}
         loader="cocktail"
@@ -44,14 +43,14 @@ function MarketScreen({ route, navigation }) {
           )}
         />
       </View>
-    </Screen>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingBottom: 10,
+    paddingVertical: 12,
   },
 });
 

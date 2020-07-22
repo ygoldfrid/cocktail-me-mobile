@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
@@ -7,7 +7,6 @@ import Button from "../components/Button";
 import Card from "../components/Cards/Card";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
-import Screen from "../components/Screen";
 import Text from "../components/Text";
 import useApi from "./../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
@@ -29,7 +28,7 @@ function CocktailsScreen({ navigation }) {
         opacity={1}
         backgroundColor={colors.primary}
       />
-      <Screen style={styles.screen}>
+      <View style={styles.list}>
         {error && (
           <>
             <Text>Couldn't retrieve the cocktails</Text>
@@ -50,14 +49,15 @@ function CocktailsScreen({ navigation }) {
             />
           )}
         />
-      </Screen>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    padding: 10,
+  list: {
+    paddingTop: 20,
+    paddingHorizontal: 20,
     backgroundColor: colors.light,
   },
 });

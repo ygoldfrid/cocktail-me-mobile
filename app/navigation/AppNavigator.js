@@ -2,11 +2,11 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
-import routes from "./routes";
-import AccountScreen from "../screens/AccountScreen";
+import AccountNavigator from "./AccountNavigator";
+import BarNavigator from "./BarNavigator";
 import FeedNavigator from "./FeedNavigator";
-import BarScreen from "../screens/BarScreen";
-import MarketNavigator from "./MarketNavigator";
+import MarketStackNavigator from "./MarketStackNavigator";
+import routes from "./routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +28,7 @@ const AppNavigator = ({ bar }) => {
       />
       <Tab.Screen
         name={routes.BAR}
-        component={BarScreen}
+        component={BarNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -42,7 +42,7 @@ const AppNavigator = ({ bar }) => {
       />
       <Tab.Screen
         name={routes.MARKET}
-        component={MarketNavigator}
+        component={MarketStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="store" size={size - 3} color={color} />
@@ -51,7 +51,7 @@ const AppNavigator = ({ bar }) => {
       />
       <Tab.Screen
         name={routes.ACCOUNT}
-        component={AccountScreen}
+        component={AccountNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
