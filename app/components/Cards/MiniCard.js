@@ -8,7 +8,7 @@ import colors from "../../config/colors";
 function Card({ title, subtitle, imageUrl, thumbnailUrl, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
+      <View style={[styles.card, { height: subtitle ? 125 : 110 }]}>
         <Image
           style={styles.image}
           tint="light"
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     borderRadius: 10,
     borderWidth: 0.5,
-    height: 125,
     marginRight: 10,
     overflow: "hidden",
     width: 70,

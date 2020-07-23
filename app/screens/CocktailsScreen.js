@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -8,10 +8,14 @@ import Card from "../components/Cards/Card";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
 import Text from "../components/Text";
+import TextInput from "../components/TextInput";
 import useApi from "./../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailsScreen({ navigation }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filtered, setFiltered] = useState([]);
+
   const { request: loadCocktails, data: cocktails, error, loading } = useApi(
     api.getCocktails
   );
@@ -19,6 +23,15 @@ function CocktailsScreen({ navigation }) {
   useEffect(() => {
     loadCocktails();
   }, []);
+
+  const handleSearch = (text) => {
+    setSearchQuery(text);
+    setFiltered(
+      cocktails.filter((cocktail) =>
+        cocktail.name.toLowerCase().includes(text.toLowerCase())
+      )
+    );
+  };
 
   return (
     <>
@@ -35,8 +48,16 @@ function CocktailsScreen({ navigation }) {
             <Button title="Retry" onPress={loadCocktails} />
           </>
         )}
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          backgroundColor={colors.white}
+          maxLength={100}
+          onChangeText={handleSearch}
+          placeholder="Search cocktails...         "
+        />
         <FlatList
-          data={cocktails}
+          data={searchQuery ? filtered : cocktails}
           keyExtractor={(cocktail) => cocktail._id.toString()}
           renderItem={({ item }) => (
             <Card
@@ -56,9 +77,10 @@ function CocktailsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   list: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
     backgroundColor: colors.light,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 5,
   },
 });
 

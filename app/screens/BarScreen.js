@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
@@ -7,6 +8,7 @@ import routes from "../navigation/routes";
 import Text from "../components/Text";
 import useBar from "../hooks/useBar";
 import { imagePath } from "../utility/imagePath";
+import colors from "../config/colors";
 
 function BarScreen({ navigation }) {
   const { bar, addOrRemoveItem, loadBar } = useBar();
@@ -15,7 +17,8 @@ function BarScreen({ navigation }) {
   return (
     <>
       {bar.length === 0 && (
-        <View>
+        <View style={styles.emptyContainer}>
+          <FontAwesome5 name="sad-cry" size={50} color={colors.dark} />
           <Text style={styles.emptyText}>Your Bar is empty!</Text>
           <Text style={styles.emptyText}>
             Go to the Market and start adding some items
@@ -43,6 +46,10 @@ function BarScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  emptyContainer: {
+    padding: 30,
+    alignItems: "center",
+  },
   emptyText: {
     fontSize: 20,
     textAlign: "center",

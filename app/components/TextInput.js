@@ -3,10 +3,16 @@ import { StyleSheet, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../config/styles";
+import colors from "../config/colors";
 
-function AppTextInput({ icon, width = "100%", ...rest }) {
+function AppTextInput({
+  backgroundColor = colors.light,
+  icon,
+  width = "100%",
+  ...rest
+}) {
   return (
-    <View style={[styles.container, { width }]}>
+    <View style={[styles.container, { backgroundColor, width }]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -26,12 +32,11 @@ function AppTextInput({ icon, width = "100%", ...rest }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
-    marginVertical: 10,
+    marginVertical: 15,
   },
   icon: {
     marginRight: 10,
