@@ -1,49 +1,64 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
+import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
 import colors from "../config/colors";
 import MiniCardList from "../components/Cards/MiniCardList";
 import routes from "../navigation/routes";
 import Text from "../components/Text";
-import useApi from "./../hooks/useApi";
+import useApi from "../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
 
 function IngredientDetailsScreen({ navigation, route }) {
-  const ingredient = route.params;
+  let initialIngredient = route.params;
 
-  const { request: loadCocktails, data: cocktails } = useApi(
-    api.getIngredientCocktails
-  );
+  const {
+    request: loadCocktails,
+    data: cocktails,
+    loading: loadingCocktails,
+  } = useApi(api.getIngredientCocktails);
+
+  const {
+    request: loadIngredient,
+    data: ingredient,
+    loading: loadingIngredient,
+  } = useApi(api.getIngredientById);
 
   useEffect(() => {
-    loadCocktails(ingredient._id);
-  }, [cocktails]);
+    loadCocktails(initialIngredient._id);
+    loadIngredient(initialIngredient._id);
+  }, [initialIngredient]);
 
   return (
     <ScrollView>
       <Image
         style={styles.image}
         tint="light"
-        preview={{ uri: imagePath(ingredient.images[0].thumbnailUrl) }}
-        uri={imagePath(ingredient.images[0].url)}
+        preview={{
+          uri: imagePath(initialIngredient.images[0].thumbnailUrl),
+        }}
+        uri={imagePath(initialIngredient.images[0].url)}
       />
       <View style={styles.details}>
-        {ingredient.alternatives.length > 0 && (
-          <Text style={styles.title}>You can replace it with:</Text>
-        )}
-        <MiniCardList
-          items={ingredient.alternatives}
-          onPress={(item) =>
-            navigation.navigate(routes.INGREDIENT_DETAILS, item)
-          }
-        />
-        <Text style={styles.title}>Cocktails you can make with it:</Text>
+        <ActivityIndicator visible={loadingCocktails || loadingIngredient} />
+        <Text style={styles.title}>What can you make?</Text>
         <MiniCardList
           items={cocktails}
           onPress={(item) => navigation.navigate(routes.COCKTAIL_DETAILS, item)}
         />
+        {ingredient.alternatives && ingredient.alternatives.length > 0 && (
+          <>
+            <Text style={styles.title}>You can replace it with:</Text>
+            <MiniCardList
+              items={ingredient.alternatives}
+              onPress={(item) =>
+                navigation.navigate(routes.INGREDIENT_DETAILS, item)
+              }
+            />
+          </>
+        )}
       </View>
     </ScrollView>
   );
@@ -62,7 +77,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 22,
     fontWeight: "bold",
-    marginVertical: 5,
+    marginVertical: 10,
   },
 });
 

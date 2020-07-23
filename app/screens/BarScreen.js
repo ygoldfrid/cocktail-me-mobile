@@ -3,10 +3,10 @@ import { FlatList, StyleSheet, View } from "react-native";
 
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
-import useBar from "../hooks/useBar";
-import { imagePath } from "../utility/imagePath";
 import routes from "../navigation/routes";
 import Text from "../components/Text";
+import useBar from "../hooks/useBar";
+import { imagePath } from "../utility/imagePath";
 
 function BarScreen({ navigation }) {
   const { bar, addOrRemoveItem, loadBar } = useBar();

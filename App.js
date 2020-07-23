@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 
+import api from "./app/api/apiService";
+import AppNavigator from "./app/navigation/AppNavigator";
 import AuthContext from "./app/auth/authContext";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+import authStorage from "./app/auth/storage";
 import BarContext from "./app/hooks/barContext";
 import navigationTheme from "./app/navigation/navigationTheme";
-import AppNavigator from "./app/navigation/AppNavigator";
-import authStorage from "./app/auth/storage";
-import api from "./app/api/apiService";
 
 export default function App() {
   const [user, setUser] = useState();

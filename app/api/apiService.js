@@ -6,6 +6,9 @@ const barEndpoint = "bar";
 
 const getIngredients = () => http.get(ingredientsEndpoint);
 
+const getIngredientById = (ingredientId) =>
+  http.get(`${ingredientsEndpoint}/${ingredientId}`);
+
 const getIngredientsByCategory = (query) =>
   http.get(`${ingredientsEndpoint}?${query}`);
 
@@ -24,6 +27,7 @@ const removeFromBar = (ingredientId) =>
 
 export default {
   getIngredients,
+  getIngredientById,
   getIngredientsByCategory,
   getIngredientCocktails,
   getCocktails,
