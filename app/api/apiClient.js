@@ -5,7 +5,7 @@ import authStorage from "../auth/storage";
 import settings from "../config/settings";
 
 const apiClient = create({
-  baseURL: settings.baseUrl + "/api",
+  baseURL: settings.baseUrl + "/api/",
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {

@@ -19,7 +19,7 @@ function IngredientDetailsScreen({ navigation, route }) {
 
   useEffect(() => {
     loadCocktails(ingredient._id);
-  }, []);
+  }, [cocktails]);
 
   return (
     <ScrollView>

@@ -2,38 +2,48 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 
-import AuthContext from "./app/auth/context";
+import AuthContext from "./app/auth/authContext";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+import BarContext from "./app/hooks/barContext";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import authStorage from "./app/auth/storage";
-import useApi from "./app/hooks/useApi";
 import api from "./app/api/apiService";
 
 export default function App() {
   const [user, setUser] = useState();
-  const [isReady, setIsReady] = useState(false);
   const [bar, setBar] = useState([]);
+  const [isReady, setIsReady] = useState(false);
 
-  const restoreUser = async () => {
-    const user = await authStorage.getUser();
+  const loadBar = async () => {
+    const { data: bar } = await api.getBar();
+    setBar(bar);
+  };
+
+  const loadUser = async () => {
+    return await authStorage.getUser();
+  };
+
+  const restoreData = async () => {
+    const user = loadUser();
     if (user) {
-      const { data } = await api.getBar();
-      setBar(data);
+      await loadBar();
       setUser(user);
     }
   };
 
   if (!isReady)
     return (
-      <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+      <AppLoading startAsync={restoreData} onFinish={() => setIsReady(true)} />
     );
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator bar={bar} /> : <AuthNavigator />}
-      </NavigationContainer>
+      <BarContext.Provider value={{ bar, setBar, loadBar }}>
+        <NavigationContainer theme={navigationTheme}>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </BarContext.Provider>
     </AuthContext.Provider>
   );
 }

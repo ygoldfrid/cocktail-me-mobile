@@ -1,5 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableHighlight } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native-expo-image-cache";
 
@@ -16,7 +21,7 @@ function ListItem({
   onPress,
 }) {
   return (
-    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+    <TouchableHighlight underlayColor={colors.medium} onPress={onPress}>
       <View style={styles.container}>
         {IconComponent}
         {imageUrl && (
@@ -38,11 +43,15 @@ function ListItem({
           )}
         </View>
         {onDelete && (
-          <MaterialCommunityIcons
-            color={colors.medium}
-            name="trash-can-outline"
-            size={25}
-          />
+          <TouchableOpacity onPress={onDelete}>
+            <View style={styles.trash}>
+              <MaterialCommunityIcons
+                color={colors.medium}
+                name="trash-can-outline"
+                size={25}
+              />
+            </View>
+          </TouchableOpacity>
         )}
       </View>
     </TouchableHighlight>
@@ -71,6 +80,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
+  },
+  trash: {
+    padding: 15,
   },
 });
 

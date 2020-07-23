@@ -1,50 +1,34 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
-import Text from "../Text";
+import AddOrRemoveButton from "../AddOrRemoveButton";
 import colors from "../../config/colors";
+import Text from "../Text";
+import { imagePath } from "../../utility/imagePath";
 
-function MarketCard({ title, imageUrl, thumbnailUrl, onPress }) {
+function MarketCard({ ingredient, onPress }) {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
         <Image
           style={styles.image}
           tint="light"
-          preview={{ uri: thumbnailUrl }}
-          uri={imageUrl}
+          preview={{ uri: imagePath(ingredient.images[0].thumbnailUrl) }}
+          uri={imagePath(ingredient.images[0].url)}
         />
         <View style={styles.details}>
           <Text numberOfLines={2} style={styles.title}>
-            {title}
+            {ingredient.name}
           </Text>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Add to My Bar</Text>
-          </View>
+          <AddOrRemoveButton ingredient={ingredient} />
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderColor: colors.primary,
-    borderRadius: 5,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: "center",
-    margin: 5,
-    padding: 2,
-    width: "95%",
-  },
-  buttonText: {
-    color: colors.primary,
-    fontSize: 12,
-  },
   card: {
     borderColor: colors.medium,
     borderRadius: 10,

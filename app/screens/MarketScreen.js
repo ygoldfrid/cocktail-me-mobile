@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -7,9 +7,11 @@ import colors from "../config/colors";
 import MarketCard from "../components/Cards/MarketCard";
 import routes from "../navigation/routes";
 import useApi from "./../hooks/useApi";
-import { imagePath } from "../utility/imagePath";
 
 function MarketScreen({ route, navigation }) {
+  const { loadBar } = useBar();
+  const [refreshing] = useState(false);
+
   const { request: loadIngredient, data: ingredients, loading } = useApi(
     api.getIngredientsByCategory
   );
@@ -33,14 +35,14 @@ function MarketScreen({ route, navigation }) {
           keyExtractor={(ing) => ing._id.toString()}
           renderItem={({ item }) => (
             <MarketCard
-              title={item.name}
-              imageUrl={imagePath(item.images[0].url)}
-              thumbnailUrl={imagePath(item.images[0].thumbnailUrl)}
+              ingredient={item}
               onPress={() =>
                 navigation.navigate(routes.INGREDIENT_DETAILS, item)
               }
             />
           )}
+          refreshing={refreshing}
+          onRefresh={loadBar}
         />
       </View>
     </>

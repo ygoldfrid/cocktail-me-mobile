@@ -6,13 +6,9 @@ import routes from "./routes";
 
 const Stack = createStackNavigator();
 
-const BarNavigator = ({ route }) => (
+const BarNavigator = () => (
   <Stack.Navigator mode="modal">
-    <Stack.Screen
-      name={routes.BAR}
-      component={BarScreen}
-      initialParams={{ bar: route.params.bar }}
-    />
+    <Stack.Screen name={routes.BAR} component={BarScreen} />
   </Stack.Navigator>
 );
 

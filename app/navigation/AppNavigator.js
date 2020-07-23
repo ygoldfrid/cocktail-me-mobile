@@ -10,7 +10,7 @@ import routes from "./routes";
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = ({ bar }) => {
+const AppNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -38,7 +38,6 @@ const AppNavigator = ({ bar }) => {
             />
           ),
         }}
-        initialParams={{ bar }}
       />
       <Tab.Screen
         name={routes.MARKET}

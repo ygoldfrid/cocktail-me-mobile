@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import jwtDecode from "jwt-decode";
 
-import AuthContext from "./context";
+import AuthContext from "./authContext";
 import authStorage from "./storage";
 
 export default useAuth = () => {
