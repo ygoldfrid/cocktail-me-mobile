@@ -6,7 +6,7 @@ import Text from "../Text";
 import colors from "../../config/colors";
 import { imagePath } from "../../utility/imagePath";
 
-function Card({ item, onPress }) {
+function Card({ barIsSelected, item, onPress }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -27,15 +27,17 @@ function Card({ item, onPress }) {
             {item.preparation[0]}
           </Text>
         </View>
-        <View style={styles.missingContainer}>
-          {item.missing === 0 ? (
-            <Text style={styles.missingText}>You can make this!</Text>
-          ) : (
-            <Text style={styles.missingText}>{`Missing ${item.missing} ${
-              item.missing === 1 ? "ingredient" : "ingredients"
-            }`}</Text>
-          )}
-        </View>
+        {barIsSelected && typeof item.missing === "number" && (
+          <View style={styles.missingContainer}>
+            {item.missing === 0 ? (
+              <Text style={styles.missingText}>You can make this!</Text>
+            ) : (
+              <Text style={styles.missingText}>{`Missing ${item.missing} ${
+                item.missing === 1 ? "ingredient" : "ingredients"
+              }`}</Text>
+            )}
+          </View>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
