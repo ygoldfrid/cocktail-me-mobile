@@ -41,24 +41,31 @@ function IngredientDetailsScreen({ navigation, route }) {
         }}
         uri={imagePath(initialIngredient.images[0].url)}
       />
-      <View style={styles.details}>
-        <ActivityIndicator visible={loadingCocktails || loadingIngredient} />
-        <Text style={styles.title}>What can you make?</Text>
-        <MiniCardList
-          items={cocktails}
-          onPress={(item) => navigation.navigate(routes.COCKTAIL_DETAILS, item)}
+      <View>
+        <ActivityIndicator
+          visible={loadingCocktails || loadingIngredient}
+          opacity={1}
         />
-        {ingredient.alternatives && ingredient.alternatives.length > 0 && (
-          <>
-            <Text style={styles.title}>You can replace it with:</Text>
-            <MiniCardList
-              items={ingredient.alternatives}
-              onPress={(item) =>
-                navigation.navigate(routes.INGREDIENT_DETAILS, item)
-              }
-            />
-          </>
-        )}
+        <View style={styles.details}>
+          <Text style={styles.title}>What can you make?</Text>
+          <MiniCardList
+            items={cocktails}
+            onPress={(item) =>
+              navigation.navigate(routes.COCKTAIL_DETAILS, item)
+            }
+          />
+          {ingredient.alternatives && ingredient.alternatives.length > 0 && (
+            <>
+              <Text style={styles.title}>You can replace it with:</Text>
+              <MiniCardList
+                items={ingredient.alternatives}
+                onPress={(item) =>
+                  navigation.navigate(routes.INGREDIENT_DETAILS, item)
+                }
+              />
+            </>
+          )}
+        </View>
       </View>
     </ScrollView>
   );
@@ -66,6 +73,7 @@ function IngredientDetailsScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   details: {
+    flex: 1,
     paddingHorizontal: 10,
     paddingBottom: 15,
   },

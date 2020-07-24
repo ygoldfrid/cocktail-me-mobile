@@ -9,11 +9,15 @@ const MarketTabNavigator = () => (
   <Tab.Navigator tabBarPosition="top">
     <Tab.Screen name="Spirits" component={MarketScreen} />
     <Tab.Screen
-      name="Liqueurs&Wines"
+      name="Liqueurs&Wines&Beers"
       component={MarketScreen}
       options={{ title: "Liqueurs & Wines" }}
     />
-    <Tab.Screen name="Mixers" component={MarketScreen} />
+    <Tab.Screen
+      name="Mixers&Syrups"
+      component={MarketScreen}
+      options={{ title: "Mixers" }}
+    />
     <Tab.Screen name="Others" component={MarketScreen} />
   </Tab.Navigator>
 );

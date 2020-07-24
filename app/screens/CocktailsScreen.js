@@ -11,18 +11,44 @@ import Text from "../components/Text";
 import TextInput from "../components/TextInput";
 import useApi from "./../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
+import useBar from "../hooks/useBar";
 
 function CocktailsScreen({ navigation }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filtered, setFiltered] = useState([]);
+  const { bar, getMissingLength } = useBar();
 
-  const { request: loadCocktails, data: cocktails, error, loading } = useApi(
-    api.getCocktails
-  );
+  const [barIsSelected, setBarIsSelected] = useState(true);
+  const [cocktails, setCocktails] = useState([]);
+  const [error, setError] = useState(false);
+  const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const refreshCocktails = async () => {
+    setLoading(true);
+    let response = await api.getCocktails();
+    setLoading(false);
+    if (!response.ok) return setError(true);
+
+    let loadedCocktails = response.data;
+
+    if (bar.length > 0 && barIsSelected) {
+      const barIds = bar.map((ing) => ing._id);
+
+      loadedCocktails = loadedCocktails.filter((cocktail) => {
+        cocktail.missing = getMissingLength(cocktail.components, barIds);
+        if (cocktail.missing < 4) return true;
+        return false;
+      });
+
+      loadedCocktails.sort((x, y) => x.missing - y.missing);
+    }
+
+    setCocktails(loadedCocktails);
+  };
 
   useEffect(() => {
-    loadCocktails();
-  }, []);
+    refreshCocktails();
+  }, [bar]);
 
   const handleSearch = (text) => {
     setSearchQuery(text);
@@ -61,11 +87,7 @@ function CocktailsScreen({ navigation }) {
           keyExtractor={(cocktail) => cocktail._id.toString()}
           renderItem={({ item }) => (
             <Card
-              body={item.preparation[0]}
-              title={item.name}
-              subtitle={item.components.length + " ingredients"}
-              imageUrl={imagePath(item.images[0].url)}
-              thumbnailUrl={imagePath(item.images[0].thumbnailUrl)}
+              item={item}
               onPress={() => navigation.navigate(routes.COCKTAIL_DETAILS, item)}
             />
           )}

@@ -23,5 +23,19 @@ export default useBar = () => {
     if (!result.ok) logger.log(result);
   };
 
-  return { bar, addOrRemoveItem, loadBar };
+  function getMissingLength(components, barIds) {
+    const size = components.length;
+
+    const match = components.filter((component) => {
+      if (barIds.includes(component.ingredient._id)) return true;
+      for (let alt of component.ingredient.alternatives)
+        if (barIds.includes(alt)) return true;
+
+      component.missing = true;
+      return false;
+    }).length;
+    return size - match;
+  }
+
+  return { bar, addOrRemoveItem, getMissingLength, loadBar };
 };
