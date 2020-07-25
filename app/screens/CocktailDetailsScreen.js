@@ -25,7 +25,7 @@ function CocktailDetailsScreen({ navigation, route }) {
           ingredient
           items={cocktail.components}
           onPress={(item) =>
-            navigation.navigate(routes.INGREDIENT_DETAILS, item.ingredient)
+            navigation.push(routes.INGREDIENT_DETAILS, item.ingredient)
           }
         />
         <Text style={styles.title}>Preparation:</Text>

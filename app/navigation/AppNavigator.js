@@ -4,7 +4,9 @@ import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import AccountNavigator from "./AccountNavigator";
 import BarNavigator from "./BarNavigator";
+import CocktailMeButton from "./CocktailMeButton";
 import FeedNavigator from "./FeedNavigator";
+import HomeIconWithBadge from "../components/HomeIconWithBadge";
 import MarketStackNavigator from "./MarketStackNavigator";
 import routes from "./routes";
 
@@ -31,13 +33,24 @@ const AppNavigator = () => {
         component={BarNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
+            <HomeIconWithBadge
               name="bottle-wine"
               size={size + 3}
               color={color}
             />
           ),
         }}
+      />
+      <Tab.Screen
+        name={routes.COCKTAIL_ME}
+        component={routes.COCKTAILS}
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <CocktailMeButton
+              onPress={() => navigation.navigate(routes.COCKTAILS, true)}
+            />
+          ),
+        })}
       />
       <Tab.Screen
         name={routes.MARKET}

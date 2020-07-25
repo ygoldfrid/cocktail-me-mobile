@@ -50,9 +50,7 @@ function IngredientDetailsScreen({ navigation, route }) {
           <Text style={styles.title}>What can you make?</Text>
           <MiniCardList
             items={cocktails}
-            onPress={(item) =>
-              navigation.navigate(routes.COCKTAIL_DETAILS, item)
-            }
+            onPress={(item) => navigation.push(routes.COCKTAIL_DETAILS, item)}
           />
           {ingredient.alternatives && ingredient.alternatives.length > 0 && (
             <>
@@ -60,7 +58,7 @@ function IngredientDetailsScreen({ navigation, route }) {
               <MiniCardList
                 items={ingredient.alternatives}
                 onPress={(item) =>
-                  navigation.navigate(routes.INGREDIENT_DETAILS, item)
+                  navigation.push(routes.INGREDIENT_DETAILS, item)
                 }
               />
             </>
