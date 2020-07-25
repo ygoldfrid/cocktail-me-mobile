@@ -14,10 +14,9 @@ import Screen from "./../components/Screen";
 import useBar from "../hooks/useBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-function CocktailsScreen({ navigation, route }) {
-  const { bar, getMissingLength } = useBar();
+function CocktailsScreen({ navigation }) {
+  const { bar, barIsSelected, setBarIsSelected, getMissingLength } = useBar();
 
-  const [barIsSelected, setBarIsSelected] = useState(false);
   const [cocktails, setCocktails] = useState([]);
   const [error, setError] = useState(false);
   const [filtered, setFiltered] = useState([]);
@@ -48,14 +47,7 @@ function CocktailsScreen({ navigation, route }) {
     setCocktails(loadedCocktails);
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      setBarIsSelected(route.params.barIsSelected);
-    }, [])
-  );
-
   useEffect(() => {
-    navigation.setParams({ barIsSelected });
     refreshCocktails();
   }, [bar, barIsSelected]);
 

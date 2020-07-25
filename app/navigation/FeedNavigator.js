@@ -13,7 +13,6 @@ const FeedNavigator = () => (
     <Stack.Screen
       name={routes.COCKTAILS_SCREEN}
       component={CocktailsScreen}
-      initialParams={{ barIsSelected: false }}
       options={{ headerShown: false }}
     />
     <Stack.Screen

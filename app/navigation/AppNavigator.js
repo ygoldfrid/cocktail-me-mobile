@@ -1,4 +1,5 @@
 import React from "react";
+import Toast from "react-native-simple-toast";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
@@ -9,10 +10,13 @@ import FeedNavigator from "./FeedNavigator";
 import HomeIconWithBadge from "../components/HomeIconWithBadge";
 import MarketStackNavigator from "./MarketStackNavigator";
 import routes from "./routes";
+import useBar from "../hooks/useBar";
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
+  const { bar, setBarIsSelected } = useBar();
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -47,11 +51,12 @@ const AppNavigator = () => {
         options={({ navigation }) => ({
           tabBarButton: () => (
             <CocktailMeButton
-              onPress={() =>
-                navigation.navigate(routes.COCKTAILS_SCREEN, {
-                  barIsSelected: true,
-                })
-              }
+              onPress={() => {
+                if (bar.length < 3)
+                  return Toast.show("Add at least 3 items to My Bar");
+                setBarIsSelected(true);
+                return navigation.navigate(routes.COCKTAILS_SCREEN);
+              }}
             />
           ),
         })}

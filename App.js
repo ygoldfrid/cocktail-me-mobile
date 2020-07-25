@@ -11,9 +11,10 @@ import BarContext from "./app/hooks/barContext";
 import navigationTheme from "./app/navigation/navigationTheme";
 
 export default function App() {
-  const [user, setUser] = useState();
   const [bar, setBar] = useState([]);
+  const [barIsSelected, setBarIsSelected] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [user, setUser] = useState();
 
   const loadBar = async () => {
     const { data: bar } = await api.getBar();
@@ -39,7 +40,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <BarContext.Provider value={{ bar, setBar, loadBar }}>
+      <BarContext.Provider
+        value={{ bar, barIsSelected, loadBar, setBar, setBarIsSelected }}
+      >
         <NavigationContainer theme={navigationTheme}>
           {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>

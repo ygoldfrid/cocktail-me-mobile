@@ -5,7 +5,9 @@ import BarContext from "./barContext";
 import logger from "../utility/logger";
 
 export default useBar = () => {
-  const { bar, setBar, loadBar } = useContext(BarContext);
+  const { bar, barIsSelected, loadBar, setBar, setBarIsSelected } = useContext(
+    BarContext
+  );
 
   const addOrRemoveItem = async (ingredient, isInMyBar = true) => {
     let actionFunc;
@@ -37,5 +39,12 @@ export default useBar = () => {
     return size - match;
   }
 
-  return { bar, addOrRemoveItem, getMissingLength, loadBar };
+  return {
+    addOrRemoveItem,
+    bar,
+    barIsSelected,
+    getMissingLength,
+    loadBar,
+    setBarIsSelected,
+  };
 };
