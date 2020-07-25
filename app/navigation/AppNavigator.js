@@ -16,7 +16,7 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={routes.COCKTAILS}
+        name={routes.COCKTAILS_NAVIGATOR}
         component={FeedNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -43,11 +43,15 @@ const AppNavigator = () => {
       />
       <Tab.Screen
         name={routes.COCKTAIL_ME}
-        component={routes.COCKTAILS}
+        component={FeedNavigator}
         options={({ navigation }) => ({
           tabBarButton: () => (
             <CocktailMeButton
-              onPress={() => navigation.navigate(routes.COCKTAILS, true)}
+              onPress={() =>
+                navigation.navigate(routes.COCKTAILS_SCREEN, {
+                  barIsSelected: true,
+                })
+              }
             />
           ),
         })}

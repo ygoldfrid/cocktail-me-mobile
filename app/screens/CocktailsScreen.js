@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FlatList, StyleSheet, Switch, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
@@ -13,7 +14,7 @@ import Screen from "./../components/Screen";
 import useBar from "../hooks/useBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-function CocktailsScreen({ navigation }) {
+function CocktailsScreen({ navigation, route }) {
   const { bar, getMissingLength } = useBar();
 
   const [barIsSelected, setBarIsSelected] = useState(false);
@@ -47,7 +48,14 @@ function CocktailsScreen({ navigation }) {
     setCocktails(loadedCocktails);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setBarIsSelected(route.params.barIsSelected);
+    }, [])
+  );
+
   useEffect(() => {
+    navigation.setParams({ barIsSelected });
     refreshCocktails();
   }, [bar, barIsSelected]);
 

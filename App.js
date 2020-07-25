@@ -25,7 +25,7 @@ export default function App() {
   };
 
   const restoreData = async () => {
-    const user = loadUser();
+    const user = await loadUser();
     if (user) {
       await loadBar();
       setUser(user);
