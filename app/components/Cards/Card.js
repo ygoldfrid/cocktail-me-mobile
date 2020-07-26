@@ -6,7 +6,7 @@ import Text from "../Text";
 import colors from "../../config/colors";
 import { imagePath } from "../../utility/imagePath";
 
-function Card({ barIsSelected, item, onPress }) {
+function Card({ item, onPress, useMyBar }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -27,7 +27,7 @@ function Card({ barIsSelected, item, onPress }) {
             {item.preparation[0]}
           </Text>
         </View>
-        {barIsSelected && typeof item.missing === "number" && (
+        {useMyBar && typeof item.missing === "number" && (
           <View style={styles.missingContainer}>
             {item.missing === 0 ? (
               <Text style={styles.missingText}>You can make this!</Text>

@@ -5,7 +5,7 @@ import BarContext from "./barContext";
 import logger from "../utility/logger";
 
 export default useBar = () => {
-  const { bar, barIsSelected, loadBar, setBar, setBarIsSelected } = useContext(
+  const { bar, loadBar, setBar, useMyBar, setUseMyBar } = useContext(
     BarContext
   );
 
@@ -25,26 +25,47 @@ export default useBar = () => {
     if (!result.ok) logger.log(result);
   };
 
-  function getMissingLength(components, barIds) {
+  const getMissingLength = (components, barIds) => {
     const size = components.length;
 
     const match = components.filter((component) => {
-      if (barIds.includes(component.ingredient._id)) return true;
+      if (barIds.includes(component.ingredient._id)) {
+        component.missing = false;
+        return true;
+      }
+
       for (let alt of component.ingredient.alternatives)
-        if (barIds.includes(alt)) return true;
+        if (barIds.includes(alt)) {
+          component.missing = false;
+          return true;
+        }
 
       component.missing = true;
       return false;
     }).length;
     return size - match;
-  }
+  };
+
+  const replaceComponents = (cocktail, bar) => {
+    return cocktail.components.map((component) => {
+      if (bar.includes(component.ingredient._id)) return component;
+      for (let alt of component.ingredient.alternatives)
+        if (bar.includes(alt._id))
+          return {
+            _id: component._id,
+            ingredient: { ...alt },
+          };
+      return component;
+    });
+  };
 
   return {
     addOrRemoveItem,
     bar,
-    barIsSelected,
     getMissingLength,
     loadBar,
-    setBarIsSelected,
+    replaceComponents,
+    setUseMyBar,
+    useMyBar,
   };
 };

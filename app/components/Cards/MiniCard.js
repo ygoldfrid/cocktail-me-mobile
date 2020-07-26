@@ -5,16 +5,17 @@ import { Image } from "react-native-expo-image-cache";
 import Text from "../Text";
 import colors from "../../config/colors";
 
-function Card({ title, subtitle, imageUrl, thumbnailUrl, onPress }) {
+function Card({ imageUrl, missing, onPress, subtitle, thumbnailUrl, title }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.card, { height: subtitle ? 125 : 110 }]}>
+      <View style={styles.card}>
         <Image
-          style={styles.image}
+          style={[styles.image, { opacity: missing ? 0.1 : 1 }]}
           tint="light"
           preview={{ uri: thumbnailUrl }}
           uri={imageUrl}
         />
+
         <View style={styles.details}>
           <Text numberOfLines={2} style={styles.title}>
             {title}
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     marginRight: 10,
+    height: 125,
     overflow: "hidden",
     width: 70,
   },

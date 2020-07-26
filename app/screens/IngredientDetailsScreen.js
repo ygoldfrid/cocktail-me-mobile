@@ -3,6 +3,7 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import ActivityIndicator from "../components/ActivityIndicator";
+import AddOrRemoveButton from "../components/AddOrRemoveButton";
 import api from "../api/apiService";
 import colors from "../config/colors";
 import MiniCardList from "../components/Cards/MiniCardList";
@@ -47,7 +48,10 @@ function IngredientDetailsScreen({ navigation, route }) {
           opacity={1}
         />
         <View style={styles.details}>
-          <Text style={styles.title}>What can you make?</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>What can you make?</Text>
+            <AddOrRemoveButton ingredient={initialIngredient} />
+          </View>
           <MiniCardList
             items={cocktails}
             onPress={(item) => navigation.push(routes.COCKTAIL_DETAILS, item)}
@@ -83,7 +87,12 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 19,
     fontWeight: "bold",
-    marginVertical: 10,
+  },
+  titleContainer: {
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 

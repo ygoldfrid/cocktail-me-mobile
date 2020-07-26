@@ -15,7 +15,7 @@ import useBar from "../hooks/useBar";
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const { bar, setBarIsSelected } = useBar();
+  const { bar, setUseMyBar } = useBar();
 
   return (
     <Tab.Navigator>
@@ -54,7 +54,7 @@ const AppNavigator = () => {
               onPress={() => {
                 if (bar.length < 3)
                   return Toast.show("Add at least 3 items to My Bar");
-                setBarIsSelected(true);
+                setUseMyBar(true);
                 return navigation.navigate(routes.COCKTAILS_SCREEN);
               }}
             />

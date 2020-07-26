@@ -12,8 +12,8 @@ import navigationTheme from "./app/navigation/navigationTheme";
 
 export default function App() {
   const [bar, setBar] = useState([]);
-  const [barIsSelected, setBarIsSelected] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [useMyBar, setUseMyBar] = useState(false);
   const [user, setUser] = useState();
 
   const loadBar = async () => {
@@ -41,7 +41,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <BarContext.Provider
-        value={{ bar, barIsSelected, loadBar, setBar, setBarIsSelected }}
+        value={{ bar, loadBar, setBar, setUseMyBar, useMyBar }}
       >
         <NavigationContainer theme={navigationTheme}>
           {user ? <AppNavigator /> : <AuthNavigator />}

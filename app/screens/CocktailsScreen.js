@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { FlatList, StyleSheet, Switch, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
@@ -12,10 +11,10 @@ import Text from "../components/Text";
 import TextInput from "../components/TextInput";
 import Screen from "./../components/Screen";
 import useBar from "../hooks/useBar";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Switch from "../components/Switch";
 
 function CocktailsScreen({ navigation }) {
-  const { bar, barIsSelected, setBarIsSelected, getMissingLength } = useBar();
+  const { bar, getMissingLength, setUseMyBar, useMyBar } = useBar();
 
   const [cocktails, setCocktails] = useState([]);
   const [error, setError] = useState(false);
@@ -30,9 +29,9 @@ function CocktailsScreen({ navigation }) {
     if (!response.ok) return setError(true);
 
     let loadedCocktails = response.data;
-    if (bar.length < 3) setBarIsSelected(false);
+    if (bar.length < 3) setUseMyBar(false);
 
-    if (bar.length >= 3 && barIsSelected) {
+    if (bar.length >= 3 && useMyBar) {
       const barIds = bar.map((ing) => ing._id);
 
       loadedCocktails = loadedCocktails.filter((cocktail) => {
@@ -49,7 +48,7 @@ function CocktailsScreen({ navigation }) {
 
   useEffect(() => {
     refreshCocktails();
-  }, [bar, barIsSelected]);
+  }, [bar, useMyBar]);
 
   const handleSearch = (text) => {
     setSearchQuery(text);
@@ -83,24 +82,13 @@ function CocktailsScreen({ navigation }) {
           onChangeText={handleSearch}
           placeholder="Search cocktails...         "
         />
-        {bar.length >= 3 && (
-          <View style={styles.switchContainer}>
-            <View style={styles.switch}>
-              <Switch value={barIsSelected} onValueChange={setBarIsSelected} />
-            </View>
-            <TouchableWithoutFeedback
-              onPress={() => setBarIsSelected(!barIsSelected)}
-            >
-              <Text>Use ingredients from My Bar</Text>
-            </TouchableWithoutFeedback>
-          </View>
-        )}
+        <Switch label="Use ingredients from My Bar" />
         <FlatList
           data={searchQuery ? filtered : cocktails}
           keyExtractor={(cocktail) => cocktail._id.toString()}
           renderItem={({ item }) => (
             <Card
-              barIsSelected={barIsSelected}
+              useMyBar={useMyBar}
               item={item}
               onPress={() => navigation.navigate(routes.COCKTAIL_DETAILS, item)}
             />
@@ -117,12 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 5,
-  },
-  switch: { paddingRight: 5 },
-  switchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingBottom: 8,
   },
 });
 
