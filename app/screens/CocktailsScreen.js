@@ -30,8 +30,7 @@ function CocktailsScreen({ navigation }) {
 
     let loadedCocktails = response.data;
     if (bar.length < 3) setUseMyBar(false);
-
-    if (bar.length >= 3 && useMyBar) {
+    else if (useMyBar) {
       const barIds = bar.map((ing) => ing._id);
 
       loadedCocktails = loadedCocktails.filter((cocktail) => {
@@ -44,6 +43,7 @@ function CocktailsScreen({ navigation }) {
     }
 
     setCocktails(loadedCocktails);
+    setSearchQuery("");
   };
 
   useEffect(() => {
@@ -81,6 +81,7 @@ function CocktailsScreen({ navigation }) {
           maxLength={100}
           onChangeText={handleSearch}
           placeholder="Search cocktails...         "
+          value={searchQuery}
         />
         <Switch label="Use ingredients from My Bar" />
         <FlatList

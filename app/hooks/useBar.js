@@ -34,15 +34,17 @@ export default useBar = () => {
         return true;
       }
 
-      for (let alt of component.ingredient.alternatives)
-        if (barIds.includes(alt)) {
-          component.missing = false;
-          return true;
-        }
+      if (useMyBar)
+        for (let alt of component.ingredient.alternatives)
+          if (barIds.includes(alt._id)) {
+            component.missing = false;
+            return true;
+          }
 
       component.missing = true;
       return false;
     }).length;
+
     return size - match;
   };
 
