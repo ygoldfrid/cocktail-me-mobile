@@ -10,23 +10,24 @@ import routes from "../navigation/routes";
 import Text from "../components/Text";
 import TextInput from "../components/TextInput";
 import Screen from "./../components/Screen";
-import useBar from "../hooks/useBar";
+import ServerErrorMessage from "../components/ServerErrorMessage";
 import Switch from "../components/Switch";
+import useBar from "../hooks/useBar";
 
 function CocktailsScreen({ navigation }) {
   const { bar, getMissingLength, setUseMyBar, useMyBar } = useBar();
 
   const [cocktails, setCocktails] = useState([]);
-  const [error, setError] = useState(false);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [serverError, setServerError] = useState(false);
 
   const refreshCocktails = async () => {
     setLoading(true);
     let response = await api.getCocktails();
     setLoading(false);
-    if (!response.ok) return setError(true);
+    if (!response.ok) return setServerError(true);
 
     let loadedCocktails = response.data;
     if (bar.length < 3) setUseMyBar(false);
@@ -67,35 +68,38 @@ function CocktailsScreen({ navigation }) {
         opacity={1}
         backgroundColor={colors.primary}
       />
-      <View style={styles.list}>
-        {error && (
-          <>
-            <Text>Couldn't retrieve the cocktails</Text>
-            <Button title="Retry" onPress={loadCocktails} />
-          </>
-        )}
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          backgroundColor={colors.white}
-          maxLength={100}
-          onChangeText={handleSearch}
-          placeholder="Search cocktails...         "
-          value={searchQuery}
-        />
-        <Switch label="Use ingredients from My Bar" />
-        <FlatList
-          data={searchQuery ? filtered : cocktails}
-          keyExtractor={(cocktail) => cocktail._id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              useMyBar={useMyBar}
-              item={item}
-              onPress={() => navigation.navigate(routes.COCKTAIL_DETAILS, item)}
-            />
-          )}
-        />
-      </View>
+      <ServerErrorMessage
+        error={serverError}
+        onPress={refreshCocktails}
+        setError={setServerError}
+      />
+      {!serverError && (
+        <View style={styles.list}>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            backgroundColor={colors.white}
+            maxLength={100}
+            onChangeText={handleSearch}
+            placeholder="Search cocktails...         "
+            value={searchQuery}
+          />
+          <Switch label="Use ingredients from My Bar" />
+          <FlatList
+            data={searchQuery ? filtered : cocktails}
+            keyExtractor={(cocktail) => cocktail._id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                useMyBar={useMyBar}
+                item={item}
+                onPress={() =>
+                  navigation.navigate(routes.COCKTAIL_DETAILS, item)
+                }
+              />
+            )}
+          />
+        </View>
+      )}
     </Screen>
   );
 }

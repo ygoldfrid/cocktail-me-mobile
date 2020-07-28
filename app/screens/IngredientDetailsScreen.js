@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { Dimensions, View, ScrollView, StyleSheet } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -11,6 +11,7 @@ import routes from "../navigation/routes";
 import Text from "../components/Text";
 import useApi from "../hooks/useApi";
 import { imagePath } from "../utility/imagePath";
+import ServerErrorMessage from "../components/ServerErrorMessage";
 
 function IngredientDetailsScreen({ navigation, route }) {
   let initialIngredient = route.params;
@@ -19,21 +20,29 @@ function IngredientDetailsScreen({ navigation, route }) {
     request: loadCocktails,
     data: cocktails,
     loading: loadingCocktails,
+    errorCock,
   } = useApi(api.getIngredientCocktails);
 
   const {
     request: loadIngredient,
     data: ingredient,
     loading: loadingIngredient,
+    error,
+    setError,
   } = useApi(api.getIngredientById);
 
+  const loadData = async (id) => {
+    console.log("initi", id);
+    loadCocktails(id);
+    loadIngredient(id);
+  };
+
   useEffect(() => {
-    loadCocktails(initialIngredient._id);
-    loadIngredient(initialIngredient._id);
+    loadData(initialIngredient._id);
   }, [initialIngredient]);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollContainer}>
       <Image
         style={styles.image}
         tint="light"
@@ -42,31 +51,40 @@ function IngredientDetailsScreen({ navigation, route }) {
         }}
         uri={imagePath(initialIngredient.images[0].url)}
       />
-      <View>
+      <View style={styles.detailsContainer}>
         <ActivityIndicator
           visible={loadingCocktails || loadingIngredient}
           opacity={1}
         />
+        <ServerErrorMessage
+          error={error || errorCock}
+          setError={setError}
+          onPress={loadData}
+        />
         <View style={styles.details}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>What can you make?</Text>
-            <AddOrRemoveButton ingredient={initialIngredient} />
-          </View>
+          {!(error || errorCock) && (
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>What can you make?</Text>
+              <AddOrRemoveButton ingredient={initialIngredient} />
+            </View>
+          )}
           <MiniCardList
             items={cocktails}
             onPress={(item) => navigation.push(routes.COCKTAIL_DETAILS, item)}
           />
-          {ingredient.alternatives && ingredient.alternatives.length > 0 && (
-            <>
-              <Text style={styles.title}>You can replace it with:</Text>
-              <MiniCardList
-                items={ingredient.alternatives}
-                onPress={(item) =>
-                  navigation.push(routes.INGREDIENT_DETAILS, item)
-                }
-              />
-            </>
-          )}
+          {ingredient &&
+            ingredient.alternatives &&
+            ingredient.alternatives.length > 0 && (
+              <>
+                <Text style={styles.title}>You can replace it with:</Text>
+                <MiniCardList
+                  items={ingredient.alternatives}
+                  onPress={(item) =>
+                    navigation.push(routes.INGREDIENT_DETAILS, item)
+                  }
+                />
+              </>
+            )}
         </View>
       </View>
     </ScrollView>
@@ -74,10 +92,12 @@ function IngredientDetailsScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  detailsContainer: {
+    minHeight: Dimensions.get("window").height - 400,
+  },
   details: {
-    flex: 1,
     paddingHorizontal: 10,
-    paddingBottom: 15,
+    paddingBottom: 10,
   },
   image: {
     height: 300,
@@ -93,6 +113,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  scrollContainer: {
+    flexGrow: 1,
   },
 });
 

@@ -9,6 +9,7 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import authStorage from "./app/auth/storage";
 import BarContext from "./app/hooks/barContext";
 import navigationTheme from "./app/navigation/navigationTheme";
+import OfflineNotice from "./app/components/OfflineNotice";
 
 export default function App() {
   const [bar, setBar] = useState([]);
@@ -17,8 +18,9 @@ export default function App() {
   const [user, setUser] = useState();
 
   const loadBar = async () => {
-    const { data: bar } = await api.getBar();
-    setBar(bar);
+    const result = await api.getBar();
+    console.log(result);
+    if (result.ok) setBar(result.data);
   };
 
   const loadUser = async () => {
@@ -43,6 +45,7 @@ export default function App() {
       <BarContext.Provider
         value={{ bar, loadBar, setBar, setUseMyBar, useMyBar }}
       >
+        <OfflineNotice />
         <NavigationContainer theme={navigationTheme}>
           {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>

@@ -6,15 +6,20 @@ import api from "../api/apiService";
 import colors from "../config/colors";
 import MarketCard from "../components/Cards/MarketCard";
 import routes from "../navigation/routes";
+import ServerErrorMessage from "../components/ServerErrorMessage";
 import useApi from "./../hooks/useApi";
 
 function MarketScreen({ route, navigation }) {
   const { loadBar } = useBar();
   const [refreshing] = useState(false);
 
-  const { request: loadIngredient, data: ingredients, loading } = useApi(
-    api.getIngredientsByCategory
-  );
+  const {
+    request: loadIngredient,
+    data: ingredients,
+    error,
+    setError,
+    loading,
+  } = useApi(api.getIngredientsByCategory);
 
   useEffect(() => {
     loadIngredient(route.name);
@@ -29,6 +34,11 @@ function MarketScreen({ route, navigation }) {
         backgroundColor={colors.primary}
       />
       <View style={styles.container}>
+        <ServerErrorMessage
+          error={error}
+          setError={setError}
+          onPress={() => loadIngredient(route.name)}
+        />
         <FlatList
           data={ingredients}
           numColumns={3}
