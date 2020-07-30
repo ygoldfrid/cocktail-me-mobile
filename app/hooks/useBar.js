@@ -25,7 +25,7 @@ export default useBar = () => {
     if (!result.ok) logger.log(result);
   };
 
-  const getMissingLength = (components, barIds) => {
+  const getMissingCount = (components, barIds) => {
     const size = components.length;
 
     const match = components.filter((component) => {
@@ -48,23 +48,29 @@ export default useBar = () => {
     return size - match;
   };
 
-  const replaceComponents = (cocktail, bar) => {
-    return cocktail.components.map((component) => {
+  function replaceComponents(cocktail, bar) {
+    let areThereAlternatives = false;
+
+    const replacedComponents = cocktail.components.map((component) => {
       if (bar.includes(component.ingredient._id)) return component;
       for (let alt of component.ingredient.alternatives)
-        if (bar.includes(alt._id))
+        if (bar.includes(alt._id)) {
+          areThereAlternatives = true;
           return {
             _id: component._id,
             ingredient: { ...alt },
           };
+        }
       return component;
     });
-  };
+
+    return { replacedComponents, areThereAlternatives };
+  }
 
   return {
     addOrRemoveItem,
     bar,
-    getMissingLength,
+    getMissingCount,
     loadBar,
     replaceComponents,
     setUseMyBar,

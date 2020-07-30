@@ -11,21 +11,26 @@ import useBar from "../hooks/useBar";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailDetailsScreen({ navigation, route }) {
-  const { bar, getMissingLength, replaceComponents, useMyBar } = useBar();
+  const { bar, getMissingCount, replaceComponents, useMyBar } = useBar();
 
   const cocktail = route.params;
-  const [missingCount, setMissingCount] = useState(0);
+
+  const [areThereAlternatives, setAreThereAlternatives] = useState(false);
   const [ingredients, setIngredients] = useState();
+  const [missingCount, setMissingCount] = useState(0);
 
   useEffect(() => {
     const barIds = bar.map((ing) => ing._id);
 
+    const replaced = replaceComponents(cocktail, barIds);
+
     const components = useMyBar
-      ? replaceComponents(cocktail, barIds)
+      ? replaced.replacedComponents
       : cocktail.components;
 
+    setAreThereAlternatives(replaced.areThereAlternatives);
     setIngredients(components);
-    setMissingCount(getMissingLength(components, barIds));
+    setMissingCount(getMissingCount(components, barIds));
   }, [bar, useMyBar]);
 
   return (
@@ -45,7 +50,10 @@ function CocktailDetailsScreen({ navigation, route }) {
               : `(missing ${missingCount} from My Bar)`}
           </Text>
         </View>
-        <Switch label="Replace ingredients with My Bar" />
+        <Switch
+          label="Replace ingredients with My Bar"
+          hide={!areThereAlternatives}
+        />
         <MiniCardList
           ingredient
           items={ingredients}

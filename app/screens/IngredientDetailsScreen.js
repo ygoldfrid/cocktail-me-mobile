@@ -32,7 +32,6 @@ function IngredientDetailsScreen({ navigation, route }) {
   } = useApi(api.getIngredientById);
 
   const loadData = async (id) => {
-    console.log("initi", id);
     loadCocktails(id);
     loadIngredient(id);
   };

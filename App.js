@@ -19,7 +19,6 @@ export default function App() {
 
   const loadBar = async () => {
     const result = await api.getBar();
-    console.log(result);
     if (result.ok) setBar(result.data);
   };
 

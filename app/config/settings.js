@@ -5,7 +5,7 @@ const settings = {
     baseUrl: "http://192.168.0.9:3900",
   },
   prod: {
-    baseUrl: "http://192.168.0.9:3900",
+    baseUrl: "https://yaniv-cocktailme-api.herokuapp.com",
   },
 };
 

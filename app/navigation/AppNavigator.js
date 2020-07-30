@@ -1,7 +1,7 @@
 import React from "react";
 import Toast from "react-native-simple-toast";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
 import AccountNavigator from "./AccountNavigator";
 import BarNavigator from "./BarNavigator";
@@ -66,7 +66,7 @@ const AppNavigator = () => {
         component={MarketStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name="store" size={size - 3} color={color} />
+            <FontAwesome name="shopping-basket" size={size - 3} color={color} />
           ),
         }}
       />

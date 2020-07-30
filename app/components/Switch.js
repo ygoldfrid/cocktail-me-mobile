@@ -9,9 +9,10 @@ import {
 import Text from "../components/Text";
 import useBar from "../hooks/useBar";
 
-function AppSwitch({ label }) {
-  const { bar, setUseMyBar, useMyBar } = useBar();
-  if (bar.length < 3) return null;
+function AppSwitch({ hide, label }) {
+  const { setUseMyBar, useMyBar } = useBar();
+
+  if (hide) return null;
 
   return (
     <View style={styles.container}>

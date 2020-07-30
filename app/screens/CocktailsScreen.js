@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
-import Button from "../components/Button";
 import Card from "../components/Cards/Card";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
-import Text from "../components/Text";
 import TextInput from "../components/TextInput";
 import Screen from "./../components/Screen";
 import ServerErrorMessage from "../components/ServerErrorMessage";
@@ -15,7 +13,7 @@ import Switch from "../components/Switch";
 import useBar from "../hooks/useBar";
 
 function CocktailsScreen({ navigation }) {
-  const { bar, getMissingLength, setUseMyBar, useMyBar } = useBar();
+  const { bar, getMissingCount, setUseMyBar, useMyBar } = useBar();
 
   const [cocktails, setCocktails] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -35,7 +33,7 @@ function CocktailsScreen({ navigation }) {
       const barIds = bar.map((ing) => ing._id);
 
       loadedCocktails = loadedCocktails.filter((cocktail) => {
-        cocktail.missing = getMissingLength(cocktail.components, barIds);
+        cocktail.missing = getMissingCount(cocktail.components, barIds);
         if (cocktail.missing < 4) return true;
         return false;
       });
@@ -84,7 +82,7 @@ function CocktailsScreen({ navigation }) {
             placeholder="Search cocktails...         "
             value={searchQuery}
           />
-          <Switch label="Use ingredients from My Bar" />
+          <Switch label="Use ingredients from My Bar" hide={bar.length < 3} />
           <FlatList
             data={searchQuery ? filtered : cocktails}
             keyExtractor={(cocktail) => cocktail._id.toString()}
