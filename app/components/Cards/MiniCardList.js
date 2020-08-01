@@ -4,26 +4,28 @@ import { FlatList } from "react-native";
 import MiniCard from "./MiniCard";
 import { imagePath } from "../../utility/imagePath";
 
-function MiniCardList({ ingredient, items, onPress }) {
+function MiniCardList({ items, onPress }) {
   return (
     <FlatList
       data={items}
       horizontal
-      keyExtractor={(item) => item._id.toString()}
+      keyExtractor={(item) =>
+        item.ingredient ? item.ingredient._id.toString() : item._id.toString()
+      }
       renderItem={({ item }) => (
         <MiniCard
           imageUrl={imagePath(
-            ingredient ? item.ingredient.images[0].url : item.images[0].url
+            item.ingredient ? item.ingredient.images[0].url : item.images[0].url
           )}
           missing={item.missing}
           onPress={() => onPress(item)}
-          subtitle={ingredient ? item.measure : ""}
+          subtitle={item.ingredient ? item.measure : ""}
           thumbnailUrl={imagePath(
-            ingredient
+            item.ingredient
               ? item.ingredient.images[0].thumbnailUrl
               : item.images[0].thumbnailUrl
           )}
-          title={ingredient ? item.ingredient.name : item.name}
+          title={item.ingredient ? item.ingredient.name : item.name}
         />
       )}
     />

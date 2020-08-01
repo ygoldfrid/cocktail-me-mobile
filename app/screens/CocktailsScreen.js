@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import api from "../api/apiService";
-import Card from "../components/Cards/Card";
+import CocktailCard from "../components/Cards/CocktailCard";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
 import TextInput from "../components/TextInput";
@@ -87,9 +87,9 @@ function CocktailsScreen({ navigation }) {
             data={searchQuery ? filtered : cocktails}
             keyExtractor={(cocktail) => cocktail._id.toString()}
             renderItem={({ item }) => (
-              <Card
+              <CocktailCard
                 useMyBar={useMyBar}
-                item={item}
+                cocktail={item}
                 onPress={() =>
                   navigation.navigate(routes.COCKTAIL_DETAILS, item)
                 }

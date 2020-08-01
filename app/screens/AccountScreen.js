@@ -3,10 +3,11 @@ import { StyleSheet, View } from "react-native";
 
 import colors from "../config/colors";
 import Icon from "../components/Icon";
+import routes from "../navigation/routes";
 import ListItem from "../components/ListItem";
 import useAuth from "../auth/useAuth";
 
-function AccountScreen() {
+function AccountScreen({ navigation }) {
   const { user, logOut } = useAuth();
 
   return (
@@ -20,13 +21,22 @@ function AccountScreen() {
           subtitle={user.email}
         />
       </View>
-      <ListItem
-        title="Log Out"
-        IconComponent={
-          <Icon name="logout" backgroundColor={colors.secondary} />
-        }
-        onPress={() => logOut()}
-      />
+      <View style={styles.item}>
+        <ListItem
+          title="My Favorites"
+          IconComponent={<Icon name="star" backgroundColor={colors.mustard} />}
+          onPress={() => navigation.navigate(routes.FAVORITES)}
+        />
+      </View>
+      <View style={styles.item}>
+        <ListItem
+          title="Log Out"
+          IconComponent={
+            <Icon name="logout" backgroundColor={colors.secondary} />
+          }
+          onPress={() => logOut()}
+        />
+      </View>
     </View>
   );
 }
@@ -37,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    marginVertical: 20,
+    marginTop: 20,
   },
 });
 

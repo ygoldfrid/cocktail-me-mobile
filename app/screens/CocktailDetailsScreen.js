@@ -6,17 +6,20 @@ import colors from "../config/colors";
 import MiniCardList from "../components/Cards/MiniCardList";
 import routes from "../navigation/routes";
 import Text from "../components/Text";
+import Star from "../components/Star";
 import Switch from "../components/Switch";
+import useAuth from "../auth/useAuth";
 import useBar from "../hooks/useBar";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailDetailsScreen({ navigation, route }) {
   const { bar, getMissingCount, replaceComponents, useMyBar } = useBar();
+  const { favorites } = useAuth();
 
   const cocktail = route.params;
 
   const [areThereAlternatives, setAreThereAlternatives] = useState(false);
-  const [ingredients, setIngredients] = useState();
+  const [components, setComponents] = useState();
   const [missingCount, setMissingCount] = useState(0);
 
   useEffect(() => {
@@ -24,13 +27,13 @@ function CocktailDetailsScreen({ navigation, route }) {
 
     const replaced = replaceComponents(cocktail, barIds);
 
-    const components = useMyBar
+    const loadedComponents = useMyBar
       ? replaced.replacedComponents
       : cocktail.components;
 
     setAreThereAlternatives(replaced.areThereAlternatives);
-    setIngredients(components);
-    setMissingCount(getMissingCount(components, barIds));
+    setComponents(loadedComponents);
+    setMissingCount(getMissingCount(loadedComponents, barIds));
   }, [bar, useMyBar]);
 
   return (
@@ -42,21 +45,23 @@ function CocktailDetailsScreen({ navigation, route }) {
         uri={imagePath(cocktail.images[0].url)}
       />
       <View style={styles.details}>
-        <View style={styles.ingredientTitles}>
-          <Text style={styles.title}>Ingredients</Text>
-          <Text style={styles.missing}>
-            {missingCount === 0
-              ? "(you can make this!)"
-              : `(missing ${missingCount} from My Bar)`}
-          </Text>
+        <View style={styles.titleContainer}>
+          <View style={styles.titleText}>
+            <Text style={styles.title}>Ingredients</Text>
+            <Text style={styles.missing}>
+              {missingCount === 0
+                ? "(you can make this!)"
+                : `(missing ${missingCount} from My Bar)`}
+            </Text>
+          </View>
+          <Star cocktail={cocktail} />
         </View>
         <Switch
           label="Replace ingredients with My Bar"
           hide={!areThereAlternatives}
         />
         <MiniCardList
-          ingredient
-          items={ingredients}
+          items={components}
           onPress={(item) =>
             navigation.push(routes.INGREDIENT_DETAILS, item.ingredient)
           }
@@ -74,7 +79,7 @@ function CocktailDetailsScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   details: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingBottom: 15,
   },
   image: {
@@ -82,9 +87,14 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 5,
   },
-  ingredientTitles: {
-    flexDirection: "row",
+  titleContainer: {
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  titleText: {
+    alignItems: "center",
+    flexDirection: "row",
   },
   missing: {
     fontSize: 15,

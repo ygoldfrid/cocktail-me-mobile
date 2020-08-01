@@ -3,6 +3,9 @@ import http from "./apiClient";
 const cocktailsEndpoint = "/cocktails";
 const ingredientsEndpoint = "/ingredients";
 const barEndpoint = "/bar";
+const favoritesEndpoint = "/favorites";
+
+//Cocktails
 
 const getIngredients = () => http.get(ingredientsEndpoint);
 
@@ -17,6 +20,8 @@ const getIngredientCocktails = (ingredientId) =>
 
 const getCocktails = () => http.get(cocktailsEndpoint);
 
+//Bar
+
 const getBar = () => http.get(barEndpoint);
 
 const addToBar = (ingredientId) =>
@@ -24,6 +29,16 @@ const addToBar = (ingredientId) =>
 
 const removeFromBar = (ingredientId) =>
   http.delete(`${barEndpoint}/${ingredientId}`);
+
+//Favorites
+
+const getFavorites = () => http.get(favoritesEndpoint);
+
+const addToFavorites = (cocktailId) =>
+  http.post(favoritesEndpoint, { _id: cocktailId });
+
+const removeFromFavorites = (cocktailId) =>
+  http.delete(`${favoritesEndpoint}/${cocktailId}`);
 
 export default {
   getIngredients,
@@ -34,4 +49,7 @@ export default {
   getBar,
   addToBar,
   removeFromBar,
+  getFavorites,
+  addToFavorites,
+  removeFromFavorites,
 };

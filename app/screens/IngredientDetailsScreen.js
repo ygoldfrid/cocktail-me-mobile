@@ -20,7 +20,7 @@ function IngredientDetailsScreen({ navigation, route }) {
     request: loadCocktails,
     data: cocktails,
     loading: loadingCocktails,
-    errorCock,
+    errorCocktail,
   } = useApi(api.getIngredientCocktails);
 
   const {
@@ -56,12 +56,12 @@ function IngredientDetailsScreen({ navigation, route }) {
           opacity={1}
         />
         <ServerErrorMessage
-          error={error || errorCock}
+          error={error || errorCocktail}
           setError={setError}
           onPress={loadData}
         />
         <View style={styles.details}>
-          {!(error || errorCock) && (
+          {!(error || errorCocktail) && (
             <View style={styles.titleContainer}>
               <Text style={styles.title}>What can you make?</Text>
               <AddOrRemoveButton ingredient={initialIngredient} />
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     minHeight: Dimensions.get("window").height - 400,
   },
   details: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingBottom: 10,
   },
   image: {

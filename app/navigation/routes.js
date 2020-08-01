@@ -5,6 +5,7 @@ export default Object.freeze({
   COCKTAILS_NAVIGATOR: "Cocktails",
   COCKTAILS_SCREEN: "Cocktails Screen",
   COCKTAIL_DETAILS: "Cocktail Details",
+  FAVORITES: "My Favorites",
   INGREDIENT_DETAILS: "Ingredient Details",
   LOGIN: "Login",
   MARKET: "Market",

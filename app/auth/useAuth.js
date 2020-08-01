@@ -3,9 +3,12 @@ import jwtDecode from "jwt-decode";
 
 import AuthContext from "./authContext";
 import authStorage from "./storage";
+import api from "../api/apiService";
 
 export default useAuth = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, favorites, setFavorites, loadFavorites } = useContext(
+    AuthContext
+  );
 
   const logIn = (authToken) => {
     const user = jwtDecode(authToken);
@@ -18,5 +21,20 @@ export default useAuth = () => {
     authStorage.removeToken();
   };
 
-  return { user, logIn, logOut };
+  const addOrRemoveFavorites = async (cocktailId, isFavorite = true) => {
+    let { data: favorites } = isFavorite
+      ? await api.removeFromFavorites(cocktailId)
+      : await api.addToFavorites(cocktailId);
+
+    setFavorites(favorites);
+  };
+
+  return {
+    addOrRemoveFavorites,
+    favorites,
+    loadFavorites,
+    user,
+    logIn,
+    logOut,
+  };
 };

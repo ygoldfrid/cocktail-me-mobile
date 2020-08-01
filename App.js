@@ -13,6 +13,7 @@ import OfflineNotice from "./app/components/OfflineNotice";
 
 export default function App() {
   const [bar, setBar] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [isReady, setIsReady] = useState(false);
   const [useMyBar, setUseMyBar] = useState(false);
   const [user, setUser] = useState();
@@ -20,6 +21,11 @@ export default function App() {
   const loadBar = async () => {
     const result = await api.getBar();
     if (result.ok) setBar(result.data);
+  };
+
+  const loadFavorites = async () => {
+    const result = await api.getFavorites();
+    if (result.ok) setFavorites(result.data);
   };
 
   const loadUser = async () => {
@@ -30,6 +36,7 @@ export default function App() {
     const user = await loadUser();
     if (user) {
       await loadBar();
+      await loadFavorites();
       setUser(user);
     }
   };
@@ -40,7 +47,9 @@ export default function App() {
     );
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider
+      value={{ favorites, loadFavorites, setFavorites, setUser, user }}
+    >
       <BarContext.Provider
         value={{ bar, loadBar, setBar, setUseMyBar, useMyBar }}
       >
