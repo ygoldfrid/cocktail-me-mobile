@@ -20,7 +20,7 @@ function IngredientDetailsScreen({ navigation, route }) {
     request: loadCocktails,
     data: cocktails,
     loading: loadingCocktails,
-    errorCocktail,
+    error: errorCocktail,
   } = useApi(api.getIngredientCocktails);
 
   const {

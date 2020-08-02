@@ -10,6 +10,7 @@ import authStorage from "./app/auth/storage";
 import BarContext from "./app/hooks/barContext";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
+import { navigationRef } from "./app/navigation/rootNavigation";
 
 export default function App() {
   const [bar, setBar] = useState([]);
@@ -54,7 +55,7 @@ export default function App() {
         value={{ bar, loadBar, setBar, setUseMyBar, useMyBar }}
       >
         <OfflineNotice />
-        <NavigationContainer theme={navigationTheme}>
+        <NavigationContainer ref={navigationRef} theme={navigationTheme}>
           {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </BarContext.Provider>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
@@ -8,10 +8,19 @@ import useBar from "../hooks/useBar";
 function AddOrRemoveButton({ ingredient }) {
   const { bar, addOrRemoveItem } = useBar();
 
-  const isInMyBar = bar ? bar.some((ing) => ing._id === ingredient._id) : false;
+  const [isInMyBar, setIsInMyBar] = useState(false);
+
+  const handleClick = () => {
+    setIsInMyBar(!isInMyBar);
+    addOrRemoveItem(ingredient, isInMyBar);
+  };
+
+  useEffect(() => {
+    setIsInMyBar(bar.some((ing) => ing._id === ingredient._id));
+  }, [bar]);
 
   return (
-    <TouchableOpacity onPress={() => addOrRemoveItem(ingredient, isInMyBar)}>
+    <TouchableOpacity onPress={handleClick}>
       {isInMyBar ? (
         <View style={[styles.button, styles.removeButton]}>
           <Text style={[styles.buttonText, styles.removeButtonText]}>

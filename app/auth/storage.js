@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-community/async-storage";
 import jwtDecode from "jwt-decode";
 import logger from "../utility/logger";
 
@@ -28,6 +29,9 @@ const getUser = async () => {
 const removeToken = async () => {
   try {
     await SecureStore.deleteItemAsync(key);
+
+    const cache_keys = ["cache/bar", "cache/favorites"];
+    await AsyncStorage.multiRemove(cache_keys);
   } catch (error) {
     logger.log("Error removing the auth token", error);
   }

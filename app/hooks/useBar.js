@@ -73,6 +73,7 @@ export default useBar = () => {
     getMissingCount,
     loadBar,
     replaceComponents,
+    setBar,
     setUseMyBar,
     useMyBar,
   };

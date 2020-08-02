@@ -76,10 +76,10 @@ function CocktailsScreen({ navigation }) {
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
-            backgroundColor={colors.white}
+            borderColor={colors.light}
             maxLength={100}
             onChangeText={handleSearch}
-            placeholder="Search cocktails...         "
+            placeholder="Search cocktails..."
             value={searchQuery}
           />
           <Switch label="Use ingredients from My Bar" hide={bar.length < 3} />

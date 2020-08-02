@@ -4,20 +4,27 @@ import jwtDecode from "jwt-decode";
 import AuthContext from "./authContext";
 import authStorage from "./storage";
 import api from "../api/apiService";
+import useBar from "./../hooks/useBar";
 
 export default useAuth = () => {
   const { user, setUser, favorites, setFavorites, loadFavorites } = useContext(
     AuthContext
   );
+  const { setBar, loadBar } = useBar();
 
   const logIn = (authToken) => {
     const user = jwtDecode(authToken);
     setUser(user);
     authStorage.storeToken(authToken);
+
+    loadBar();
+    loadFavorites();
   };
 
   const logOut = () => {
     setUser(null);
+    setBar([]);
+    setFavorites([]);
     authStorage.removeToken();
   };
 
