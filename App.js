@@ -3,18 +3,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 
 import api from "./app/api/apiService";
-import AppNavigator from "./app/navigation/AppNavigator";
 import AuthContext from "./app/auth/authContext";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import authStorage from "./app/auth/storage";
 import BarContext from "./app/hooks/barContext";
+import IntroNavigator from "./app/navigation/IntroNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { navigationRef } from "./app/navigation/rootNavigation";
+import storage from "./app/auth/storage";
 
 export default function App() {
   const [bar, setBar] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [seenIntro, setSeenIntro] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [useMyBar, setUseMyBar] = useState(false);
   const [user, setUser] = useState();
@@ -34,6 +36,8 @@ export default function App() {
   };
 
   const restoreData = async () => {
+    setSeenIntro(await storage.getToken("introToken"));
+
     const user = await loadUser();
     if (user) {
       await loadBar();
@@ -49,14 +53,21 @@ export default function App() {
 
   return (
     <AuthContext.Provider
-      value={{ favorites, loadFavorites, setFavorites, setUser, user }}
+      value={{
+        favorites,
+        loadFavorites,
+        setFavorites,
+        setSeenIntro,
+        setUser,
+        user,
+      }}
     >
       <BarContext.Provider
         value={{ bar, loadBar, setBar, setUseMyBar, useMyBar }}
       >
         <OfflineNotice />
         <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-          {user ? <AppNavigator /> : <AuthNavigator />}
+          {user ? <IntroNavigator seenIntro={seenIntro} /> : <AuthNavigator />}
         </NavigationContainer>
       </BarContext.Provider>
     </AuthContext.Provider>

@@ -66,9 +66,7 @@ const styles = StyleSheet.create({
   },
   missingContainer: {
     backgroundColor: colors.white,
-    borderColor: colors.primary,
     borderRadius: 10,
-    borderWidth: 1,
     padding: 4,
     position: "absolute",
     right: 10,

@@ -1,0 +1,96 @@
+import React from "react";
+import AppIntroSlider from "react-native-app-intro-slider";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
+import colors from "../config/colors";
+import routes from "../navigation/routes";
+import storage from "../auth/storage";
+
+function IntroSliderScreen({ navigation }) {
+  const renderItem = ({ item }) => {
+    return (
+      <View style={[styles.slide, { backgroundColor: item.bg }]}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Image
+          source={item.image}
+          style={[styles.image, { width: item.width, height: item.height }]}
+        />
+      </View>
+    );
+  };
+
+  const onDone = () => {
+    storage.storeToken("seen", "introToken");
+    navigation.navigate(routes.COCKTAILS_NAVIGATOR);
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <StatusBar translucent backgroundColor="transparent" />
+      <AppIntroSlider
+        keyExtractor={(item) => item.title}
+        renderItem={renderItem}
+        data={slides}
+        onDone={onDone}
+        showPrevButton
+        showSkipButton
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  image: {
+    height: 250,
+    marginVertical: 32,
+  },
+  slide: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+  },
+  title: {
+    color: colors.medium,
+    fontSize: 20,
+    marginHorizontal: 40,
+    textAlign: "center",
+  },
+});
+
+const slides = [
+  {
+    key: 1,
+    title: "Welcome to Cocktail Me!",
+    image: require("../assets/mojito.png"),
+    bg: "#ffce5c",
+    height: 220,
+    width: 220,
+  },
+  {
+    key: 2,
+    title: "Add ingredients to your bar",
+    image: require("../assets/liquor.png"),
+    bg: "#96d6d1",
+    height: 220,
+    width: 220,
+  },
+  {
+    key: 3,
+    title: "Find out which cocktails you can make",
+    image: require("../assets/margarita.png"),
+    bg: "#ff9ca1",
+    height: 220,
+    width: 220,
+  },
+  {
+    key: 4,
+    title: "Enjoy with friends!",
+    image: require("../assets/cheers.jpg"),
+    bg: "#fde5cb",
+    height: 250,
+    width: 320,
+  },
+];
+
+export default IntroSliderScreen;

@@ -4,9 +4,8 @@ export default {
   dark: "#333333",
   light: "#f8f4f4",
   medium: "#6e6969",
-  mustard: "#ffc800",
-  primary: "#1d7d32",
-  red: "#ff3333",
-  secondary: "#db4f56", //7d221d
+  mustard: "#ffe042",
+  primary: "#3f9e54",
+  red: "#ff4f4f",
   white: "#fff",
 };

@@ -8,8 +8,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/merienda-one": "^0.1.0",
     "@react-native-community/async-storage": "~1.11.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-community/netinfo": "5.9.2",
     "@react-navigation/bottom-tabs": "^5.7.1",
     "@react-navigation/material-top-tabs": "^5.2.14",
     "@react-navigation/native": "^5.7.0",
@@ -17,6 +19,7 @@
     "apisauce": "^1.1.1",
     "expo": "~38.0.8",
     "expo-blur": "~8.1.2",
+    "expo-font": "~8.2.1",
     "expo-secure-store": "~9.0.1",
     "expo-status-bar": "^1.0.2",
     "formik": "^2.1.4",
@@ -25,6 +28,7 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-app-intro-slider": "^4.0.4",
     "react-native-expo-image-cache": "^4.1.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-reanimated": "~1.9.0",
@@ -33,8 +37,7 @@
     "react-native-simple-toast": "^1.1.2",
     "react-native-tab-view": "^2.15.0",
     "react-native-web": "~0.11.7",
-    "yup": "^0.29.1",
-    "@react-native-community/netinfo": "5.9.2"
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

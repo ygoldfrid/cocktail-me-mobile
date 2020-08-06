@@ -27,12 +27,7 @@ function MarketScreen({ route, navigation }) {
 
   return (
     <>
-      <ActivityIndicator
-        visible={loading}
-        loader="cocktail"
-        opacity={1}
-        backgroundColor={colors.primary}
-      />
+      <ActivityIndicator visible={loading} />
       <View style={styles.container}>
         <ServerErrorMessage
           error={error}

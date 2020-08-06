@@ -94,7 +94,7 @@ function RegisterScreen() {
             secureTextEntry
             textContentType="password"
           />
-          <SubmitButton title="Register" />
+          <SubmitButton title="Sign Up" />
         </Form>
       </Screen>
     </>

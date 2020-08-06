@@ -60,12 +60,7 @@ function CocktailsScreen({ navigation }) {
 
   return (
     <Screen>
-      <ActivityIndicator
-        visible={loading}
-        loader="cocktail"
-        opacity={1}
-        backgroundColor={colors.primary}
-      />
+      <ActivityIndicator visible={loading} />
       <ServerErrorMessage
         error={serverError}
         onPress={refreshCocktails}

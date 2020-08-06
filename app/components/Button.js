@@ -3,12 +3,9 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
 
-function Button({ title, onPress, color = "primary" }) {
+function Button({ onPress, title }) {
   return (
-    <TouchableOpacity
-      style={[styles.button, { backgroundColor: colors[color] }]}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -26,8 +23,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.white,
-    fontSize: 18,
-    textTransform: "uppercase",
+    fontSize: 19,
     fontWeight: "bold",
   },
 });

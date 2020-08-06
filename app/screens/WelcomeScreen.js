@@ -1,52 +1,68 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
+import { AppLoading } from "expo";
+import { ImageBackground, StyleSheet, Text } from "react-native";
+import {
+  useFonts,
+  MeriendaOne_400Regular,
+} from "@expo-google-fonts/merienda-one";
 
 import Button from "../components/Button";
 import colors from "../config/colors";
+import Link from "../components/Link";
+import routes from "../navigation/routes";
 
 function WelcomeScreen({ navigation }) {
+  let [fontsLoaded] = useFonts({
+    "Merienda-One": require("../assets/fonts/MeriendaOne-Regular.ttf"),
+    "Merienda-One-Regular": MeriendaOne_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <ImageBackground
-      blurRadius={2}
       style={styles.background}
-      source={require("../assets/bartender.jpg")}
+      source={require("../assets/wood.jpg")}
     >
-      <View style={styles.buttonsContainer}>
-        <Button title="Login" onPress={() => navigation.navigate("Login")} />
-        <Button
-          title="Register"
-          color="secondary"
-          onPress={() => navigation.navigate("Register")}
-        />
-      </View>
+      <Text style={styles.title}>Cocktail Me!</Text>
+      <Button title="Login" onPress={() => navigation.navigate(routes.LOGIN)} />
+      <Link
+        onPress={() => navigation.navigate(routes.REGISTER)}
+        text="or Sign Up"
+        style={styles.link}
+      />
+      <Text style={styles.by}>by Yaniv Goldfrid</Text>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
+    alignItems: "center",
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 30,
   },
-  buttonsContainer: {
-    padding: 20,
-    width: "100%",
-  },
-  logo: {
-    width: 100,
-    height: 100,
-  },
-  logoContainer: {
-    position: "absolute",
-    top: 70,
-    alignItems: "center",
-  },
-  tagline: {
-    fontSize: 25,
+  by: {
+    alignSelf: "center",
+    bottom: 20,
+    color: colors.primary,
+    fontSize: 15,
     fontWeight: "bold",
-    paddingVertical: 20,
-    color: colors.white,
+    position: "absolute",
+  },
+  link: {
+    fontSize: 19,
+    fontWeight: "bold",
+    marginTop: 5,
+  },
+  title: {
+    color: colors.primary,
+    fontFamily: "Merienda-One-Regular",
+    fontSize: 45,
+    marginBottom: 30,
   },
 });
 

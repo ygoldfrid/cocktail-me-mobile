@@ -3,21 +3,22 @@ import AsyncStorage from "@react-native-community/async-storage";
 import jwtDecode from "jwt-decode";
 import logger from "../utility/logger";
 
-const key = "authToken";
+const authKey = "authToken";
+const introKey = "introToken";
 
-const storeToken = async (authToken) => {
+const storeToken = async (value, key = authKey) => {
   try {
-    await SecureStore.setItemAsync(key, authToken);
+    await SecureStore.setItemAsync(key, value);
   } catch (error) {
-    logger.log("Error storing the auth token", error);
+    logger.log("Error storing the value", error);
   }
 };
 
-const getToken = async () => {
+const getToken = async (key = authKey) => {
   try {
     return await SecureStore.getItemAsync(key);
   } catch (error) {
-    logger.log("Error getting the auth token", error);
+    logger.log("Error getting the value", error);
   }
 };
 
@@ -26,20 +27,21 @@ const getUser = async () => {
   return token ? jwtDecode(token) : null;
 };
 
-const removeToken = async () => {
+const removeTokens = async () => {
   try {
-    await SecureStore.deleteItemAsync(key);
+    await SecureStore.deleteItemAsync(authKey);
+    await SecureStore.deleteItemAsync(introKey);
 
     const cache_keys = ["cache/bar", "cache/favorites"];
     await AsyncStorage.multiRemove(cache_keys);
   } catch (error) {
-    logger.log("Error removing the auth token", error);
+    logger.log("Error removing the value", error);
   }
 };
 
 export default {
   getToken,
   getUser,
-  removeToken,
+  removeTokens,
   storeToken,
 };

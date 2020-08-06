@@ -7,9 +7,14 @@ import api from "../api/apiService";
 import useBar from "./../hooks/useBar";
 
 export default useAuth = () => {
-  const { user, setUser, favorites, setFavorites, loadFavorites } = useContext(
-    AuthContext
-  );
+  const {
+    user,
+    setUser,
+    favorites,
+    setFavorites,
+    setSeenIntro,
+    loadFavorites,
+  } = useContext(AuthContext);
   const { setBar, loadBar } = useBar();
 
   const logIn = (authToken) => {
@@ -22,10 +27,11 @@ export default useAuth = () => {
   };
 
   const logOut = () => {
-    setUser(null);
     setBar([]);
     setFavorites([]);
-    authStorage.removeToken();
+    setSeenIntro(null);
+    setUser(null);
+    authStorage.removeTokens();
   };
 
   const addOrRemoveFavorites = async (cocktailId, isFavorite = true) => {

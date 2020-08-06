@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
 import authApi from "../../api/authService";
-import colors from "../../config/colors";
+import Link from "../../components/Link";
 import logger from "../../utility/logger";
 import routes from "../../navigation/routes";
 import Screen from "../../components/Screen";
-import Text from "../../components/Text";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import {
@@ -73,11 +72,10 @@ function LoginScreen({ navigation }) {
           />
           <SubmitButton title="Login" />
         </Form>
-        <TouchableOpacity
+        <Link
           onPress={() => navigation.navigate(routes.FORGOT_PASSWORD)}
-        >
-          <Text style={styles.link}>Forgot your password?</Text>
-        </TouchableOpacity>
+          text="Forgot your password?"
+        />
       </Screen>
     </>
   );
@@ -86,11 +84,6 @@ function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-  },
-  link: {
-    marginTop: 15,
-    color: colors.primary,
-    textAlign: "center",
   },
 });
 
