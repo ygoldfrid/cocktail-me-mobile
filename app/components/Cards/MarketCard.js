@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     borderColor: colors.medium,
     borderRadius: 10,
     borderWidth: 0.5,
-    height: 190,
-    margin: 7,
+    height: 200,
+    margin: 4,
     overflow: "hidden",
-    width: 100,
+    width: 110,
   },
   details: {
     justifyContent: "space-between",

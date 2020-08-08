@@ -1,5 +1,5 @@
 import React from "react";
-import Toast from "react-native-simple-toast";
+import { Alert } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
@@ -53,7 +53,10 @@ const AppNavigator = () => {
             <CocktailMeButton
               onPress={() => {
                 if (bar.length < 3)
-                  return Toast.show("Add at least 3 items to My Bar");
+                  return Alert.alert(
+                    "Oops!",
+                    "You need to add at least 3 items to My Bar"
+                  );
                 setUseMyBar(true);
                 return navigation.navigate(routes.COCKTAILS_SCREEN);
               }}

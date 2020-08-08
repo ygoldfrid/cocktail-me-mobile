@@ -78,9 +78,6 @@ const styles = StyleSheet.create({
   subtitle: {
     color: colors.medium,
   },
-  title: {
-    fontSize: 18,
-  },
   trash: {
     padding: 15,
   },

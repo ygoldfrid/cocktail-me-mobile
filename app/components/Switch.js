@@ -30,7 +30,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingBottom: 8,
+    marginBottom: 10,
+  },
+  switch: {
+    marginRight: 8,
   },
 });
 

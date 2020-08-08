@@ -11,7 +11,7 @@ const MarketTabNavigator = () => (
     <Tab.Screen
       name="Liqueurs&Wines&Beers"
       component={MarketScreen}
-      options={{ title: "Liqueurs & Wines" }}
+      options={{ title: "Liquors" }}
     />
     <Tab.Screen
       name="Mixers&Syrups"

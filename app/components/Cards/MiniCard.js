@@ -37,15 +37,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     marginRight: 10,
-    height: 125,
+    height: 140,
     overflow: "hidden",
-    width: 70,
+    width: 78,
   },
   details: {
     justifyContent: "center",
     flex: 1,
     alignItems: "center",
-    padding: 5,
+    paddingHorizontal: 10,
   },
   image: {
     height: 70,

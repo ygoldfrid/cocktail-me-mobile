@@ -27,7 +27,11 @@ function WelcomeScreen({ navigation }) {
       source={require("../assets/wood.jpg")}
     >
       <Text style={styles.title}>Cocktail Me!</Text>
-      <Button title="Login" onPress={() => navigation.navigate(routes.LOGIN)} />
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate(routes.LOGIN)}
+        style={styles.button}
+      />
       <Link
         onPress={() => navigation.navigate(routes.REGISTER)}
         text="or Sign Up"
@@ -43,7 +47,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 30,
+  },
+  button: {
+    width: "75%",
   },
   by: {
     alignSelf: "center",
