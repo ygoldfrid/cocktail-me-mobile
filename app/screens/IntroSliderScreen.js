@@ -78,7 +78,7 @@ const slides = [
   {
     key: 3,
     title: "Find out which cocktails you can make",
-    image: require("../assets/margarita.png"),
+    image: require("../assets/martini.png"),
     bg: "#ff9ca1",
     height: 220,
     width: 220,
