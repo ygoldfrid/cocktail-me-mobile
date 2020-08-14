@@ -13,12 +13,16 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Make your own homemade cocktails with the ingredients you have in your kitchen",
+    "githubUrl": "https://github.com/ygoldfrid/cocktail-me-mobile"
   }
 }

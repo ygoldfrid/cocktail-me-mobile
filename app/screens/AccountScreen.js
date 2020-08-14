@@ -23,7 +23,7 @@ function AccountScreen({ navigation }) {
       </View>
       <View style={styles.item}>
         <ListItem
-          title="My Favorites"
+          title="Favorites"
           IconComponent={<Icon name="star" backgroundColor={colors.mustard} />}
           onPress={() => navigation.navigate(routes.FAVORITES)}
         />

@@ -6,20 +6,15 @@ import Text from "./Text";
 
 function ActivityIndicator({
   visible = false,
-  loader = "circle",
   opacity = 0.7,
   backgroundColor = "white",
 }) {
   if (!visible) return null;
-  const source =
-    loader === "circle"
-      ? require("../assets/animations/loader-dots.json")
-      : require("../assets/animations/loader-cocktail.json");
+  const source = require("../assets/animations/loader-dots.json");
 
   return (
     <View style={[styles.overlay, { backgroundColor, opacity }]}>
       <LottieView autoPlay loop source={source} />
-      {loader === "cocktail" && <Text style={styles.text}>Loading</Text>}
     </View>
   );
 }

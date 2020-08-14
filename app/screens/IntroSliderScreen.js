@@ -22,7 +22,10 @@ function IntroSliderScreen({ navigation }) {
 
   const onDone = () => {
     storage.storeToken("seen", "introToken");
-    navigation.navigate(routes.COCKTAILS_NAVIGATOR);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: routes.COCKTAILS_NAVIGATOR }],
+    });
   };
 
   return (

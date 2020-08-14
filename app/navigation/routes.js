@@ -1,11 +1,11 @@
 export default Object.freeze({
-  ACCOUNT: "My Account",
+  ACCOUNT: "Account",
   BAR: "My Bar",
   COCKTAIL_ME: "Cocktail Me",
   COCKTAILS_NAVIGATOR: "Cocktails",
   COCKTAILS_SCREEN: "Cocktails Screen",
   COCKTAIL_DETAILS: "Cocktail Details",
-  FAVORITES: "My Favorites",
+  FAVORITES: "Favorites",
   FORGOT_PASSWORD: "Reset your password",
   INTRO: "Intro",
   VALIDATE_TOKEN: "Validate Code",
