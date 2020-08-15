@@ -2,6 +2,7 @@
   "expo": {
     "name": "Cocktail Me",
     "slug": "cocktailme-mobile",
+    "privacy": "unlisted",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -13,16 +14,33 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yanivgoldfrid.cocktailme",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.yanivgoldfrid.cocktailme",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "description": "Make your own homemade cocktails with the ingredients you have in your kitchen",
-    "githubUrl": "https://github.com/ygoldfrid/cocktail-me-mobile"
+    "githubUrl": "https://github.com/ygoldfrid/cocktail-me-mobile",
+    "extra": {
+      "bugsnag": {
+        "apiKey": "0a0f955ffe330293fef06e410db3ee5d"
+      }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@bugsnag/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    }
   }
 }

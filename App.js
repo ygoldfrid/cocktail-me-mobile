@@ -8,10 +8,13 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import authStorage from "./app/auth/storage";
 import BarContext from "./app/hooks/barContext";
 import IntroNavigator from "./app/navigation/IntroNavigator";
+import logger from "./app/utility/logger";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import storage from "./app/auth/storage";
+
+logger.start();
 
 export default function App() {
   const [bar, setBar] = useState([]);
