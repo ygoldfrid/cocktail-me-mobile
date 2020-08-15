@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import AboutScreen from "../screens/AboutScreen";
 import AccountScreen from "../screens/AccountScreen";
 import CocktailDetailsScreen from "../screens/CocktailDetailsScreen";
 import IngredientDetailsScreen from "../screens/IngredientDetailsScreen";
@@ -12,6 +13,7 @@ const Stack = createStackNavigator();
 const AccountNavigator = () => (
   <Stack.Navigator mode="modal">
     <Stack.Screen name={routes.ACCOUNT} component={AccountScreen} />
+    <Stack.Screen name={routes.ABOUT} component={AboutScreen} />
     <Stack.Screen name={routes.FAVORITES} component={FavoritesScreen} />
     <Stack.Screen
       name={routes.COCKTAIL_DETAILS}

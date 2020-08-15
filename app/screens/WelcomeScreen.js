@@ -60,9 +60,6 @@ const styles = StyleSheet.create({
   by: {
     alignSelf: "center",
     bottom: 20,
-    color: colors.primary,
-    fontSize: 15,
-    fontWeight: "bold",
     position: "absolute",
   },
   container: {

@@ -16,7 +16,7 @@ function AccountScreen({ navigation }) {
         <ListItem
           title={user.name}
           IconComponent={
-            <Icon name="account" backgroundColor={colors.medium} />
+            <Icon name="account" backgroundColor={colors.primary} />
           }
           subtitle={user.email}
         />
@@ -26,6 +26,15 @@ function AccountScreen({ navigation }) {
           title="Favorites"
           IconComponent={<Icon name="star" backgroundColor={colors.mustard} />}
           onPress={() => navigation.navigate(routes.FAVORITES)}
+        />
+      </View>
+      <View style={styles.item}>
+        <ListItem
+          title="About"
+          IconComponent={
+            <Icon name="cellphone" backgroundColor={colors.medium} />
+          }
+          onPress={() => navigation.navigate(routes.ABOUT)}
         />
       </View>
       <View style={styles.item}>

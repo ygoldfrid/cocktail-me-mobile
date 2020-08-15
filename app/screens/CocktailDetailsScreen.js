@@ -8,13 +8,11 @@ import routes from "../navigation/routes";
 import Text from "../components/Text";
 import Star from "../components/Star";
 import Switch from "../components/Switch";
-import useAuth from "../auth/useAuth";
 import useBar from "../hooks/useBar";
 import { imagePath } from "../utility/imagePath";
 
 function CocktailDetailsScreen({ navigation, route }) {
   const { bar, getMissingCount, replaceComponents, useMyBar } = useBar();
-  const { favorites } = useAuth();
 
   const cocktail = route.params;
 

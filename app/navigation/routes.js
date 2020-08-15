@@ -1,4 +1,5 @@
 export default Object.freeze({
+  ABOUT: "About",
   ACCOUNT: "Account",
   BAR: "My Bar",
   COCKTAIL_ME: "Cocktail Me",

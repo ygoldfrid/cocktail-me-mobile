@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
-import { Linking, Text } from "react-native";
+import { Linking, StyleSheet } from "react-native";
 
-import Link from "./Link";
+import colors from "../config/colors";
+import Text from "./Text";
 
 const OpenUrlLink = ({ text, url, style }) => {
   const handlePress = useCallback(async () => {
@@ -18,10 +19,17 @@ const OpenUrlLink = ({ text, url, style }) => {
   }, [url]);
 
   return (
-    <Text style={style} onPress={handlePress}>
+    <Text style={[styles.link, style]} onPress={handlePress}>
       {text}
     </Text>
   );
 };
+
+const styles = StyleSheet.create({
+  link: {
+    color: colors.primary,
+    fontWeight: "bold",
+  },
+});
 
 export default OpenUrlLink;
