@@ -17,6 +17,12 @@ function AboutScreen() {
         style={styles.website}
         url="https://www.yanivgoldfrid.com"
       />
+      <View style={styles.line} />
+      <OpenUrlLink
+        text="Privacy Policy"
+        style={styles.externalLink}
+        url="https://cocktailme.yanivgoldfrid.com/privacy"
+      />
       <Text style={styles.attribution}>Attribution:</Text>
       <Text>
         Icons made by{" "}
@@ -62,8 +68,8 @@ function AboutScreen() {
 
 const styles = StyleSheet.create({
   attribution: {
-    marginTop: 30,
     fontSize: 18,
+    marginTop: 20,
   },
   container: {
     padding: 15,
@@ -75,6 +81,11 @@ const styles = StyleSheet.create({
     color: colors.dark,
     fontWeight: "normal",
     textDecorationLine: "underline",
+  },
+  line: {
+    backgroundColor: colors.dark,
+    height: 1,
+    marginVertical: 20,
   },
   website: {
     alignSelf: "center",
