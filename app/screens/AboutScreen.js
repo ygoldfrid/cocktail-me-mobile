@@ -48,6 +48,14 @@ function AboutScreen() {
           url="https://www.freepik.com/photos/background"
         />
       </Text>
+      <Text>
+        People photo created by senivpetro -{" "}
+        <OpenUrlLink
+          text="www.freepik.com"
+          style={styles.externalLink}
+          url="https://www.freepik.com/photos/people"
+        />
+      </Text>
     </View>
   );
 }
