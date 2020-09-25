@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
@@ -20,6 +20,8 @@ function CocktailsScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [serverError, setServerError] = useState(false);
+
+  const flatlist = useRef();
 
   const refreshCocktails = async () => {
     setLoading(true);
@@ -47,6 +49,7 @@ function CocktailsScreen({ navigation }) {
 
   useEffect(() => {
     refreshCocktails();
+    flatlist.current.scrollToOffset({ animated: true, offset: 0 });
   }, [bar, useMyBar]);
 
   const handleSearch = (text) => {
@@ -79,6 +82,7 @@ function CocktailsScreen({ navigation }) {
           />
           <Switch label="Use ingredients from My Bar" hide={bar.length < 3} />
           <FlatList
+            ref={flatlist}
             data={searchQuery ? filtered : cocktails}
             keyExtractor={(cocktail) => cocktail._id.toString()}
             renderItem={({ item }) => (

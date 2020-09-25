@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -52,7 +53,7 @@ function RegisterScreen() {
   };
 
   return (
-    <>
+    <KeyboardAwareScrollView>
       <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
       <Screen style={styles.container}>
         <Form
@@ -97,7 +98,7 @@ function RegisterScreen() {
           <SubmitButton title="Sign Up" />
         </Form>
       </Screen>
-    </>
+    </KeyboardAwareScrollView>
   );
 }
 
