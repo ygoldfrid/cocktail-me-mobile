@@ -3,7 +3,7 @@
     "name": "Cocktail Me",
     "slug": "cocktailme-mobile",
     "privacy": "unlisted",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -11,14 +11,11 @@
       "resizeMode": "cover",
       "backgroundColor": "#3f9e54"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yanivgoldfrid.cocktailme",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "package": "com.yanivgoldfrid.cocktailme",
