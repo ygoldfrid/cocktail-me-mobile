@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
 import authApi from "../../api/authService";
-import colors from "../../config/colors";
+import Link from "../../components/Link";
 import routes from "../../navigation/routes";
 import Screen from "../../components/Screen";
 import Text from "../../components/Text";
@@ -66,9 +66,7 @@ function ValidateToken({ navigation, route }) {
           <SubmitButton title="Send" />
         </Form>
         <Text style={styles.bottomInstructions}>Didn't get the code?</Text>
-        <TouchableOpacity onPress={resendEmail}>
-          <Text style={styles.link}>Resend email</Text>
-        </TouchableOpacity>
+        <Link onPress={resendEmail} text="Resend email" />
       </Screen>
     </>
   );
@@ -83,10 +81,6 @@ const styles = StyleSheet.create({
   },
   bottomInstructions: {
     marginVertical: 5,
-    textAlign: "center",
-  },
-  link: {
-    color: colors.primary,
     textAlign: "center",
   },
 });

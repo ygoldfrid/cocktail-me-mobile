@@ -3,19 +3,21 @@ import { AppLoading } from "expo";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import {
   useFonts,
-  MeriendaOne_400Regular,
-} from "@expo-google-fonts/merienda-one";
+  Catamaran_100Thin,
+  Catamaran_500Medium,
+} from "@expo-google-fonts/catamaran";
 
 import Button from "../components/Button";
 import colors from "../config/colors";
 import Link from "../components/Link";
 import OpenUrlLink from "../components/OpenUrlLink";
 import routes from "../navigation/routes";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function WelcomeScreen({ navigation }) {
   let [fontsLoaded] = useFonts({
-    "Merienda-One": require("../assets/fonts/MeriendaOne-Regular.ttf"),
-    "Merienda-One-Regular": MeriendaOne_400Regular,
+    "Catamaran-Thin": Catamaran_100Thin,
+    "Catamaran-Medium": Catamaran_500Medium,
   });
 
   if (!fontsLoaded) {
@@ -25,25 +27,33 @@ function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
-      source={require("../assets/wood.jpg")}
+      source={require("../assets/background.jpg")}
+      blurRadius={1}
     >
       <View style={styles.container}>
         <Image style={styles.logo} source={require("../assets/logo.png")} />
-        <Text style={styles.title}>Cocktail Me!</Text>
+        <Text style={styles.title}>
+          Cocktail<Text style={{ fontFamily: "Catamaran-Medium" }}>Me</Text>
+        </Text>
+
         <Button
           title="Login"
           onPress={() => navigation.navigate(routes.LOGIN)}
           style={styles.button}
+          textStyle={{ fontFamily: "Catamaran-Medium", fontWeight: "normal" }}
         />
         <Link
           onPress={() => navigation.navigate(routes.REGISTER)}
           text="or Sign Up"
           style={styles.link}
+          color="white"
         />
       </View>
       <OpenUrlLink
-        text="by Yaniv Goldfrid"
+        color={colors.white}
         style={styles.by}
+        text="by Yaniv Goldfrid"
+        touchable
         url="https://www.yanivgoldfrid.com"
       />
     </ImageBackground>
@@ -55,33 +65,34 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
+    backgroundColor: "#72d47e99",
     width: "75%",
+    marginVertical: 10,
+    paddingBottom: 14,
   },
   by: {
     alignSelf: "center",
     bottom: 20,
-    position: "absolute",
   },
   container: {
-    top: 70,
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   link: {
-    fontSize: 19,
-    fontWeight: "bold",
-    marginTop: 5,
+    marginTop: 0,
   },
   logo: {
     left: 15,
-    height: 180,
-    marginBottom: 15,
-    width: 180,
+    height: 160,
+    width: 160,
+    marginBottom: -10,
   },
   title: {
-    color: colors.primary,
-    fontFamily: "Merienda-One-Regular",
+    color: colors.white,
+    fontFamily: "Catamaran-Thin",
     fontSize: 45,
-    marginBottom: 10,
+    marginBottom: 15,
   },
 });
 

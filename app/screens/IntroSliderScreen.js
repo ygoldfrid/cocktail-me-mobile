@@ -1,13 +1,23 @@
 import React from "react";
+import { AppLoading } from "expo";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { useFonts, Catamaran_100Thin } from "@expo-google-fonts/catamaran";
 
 import colors from "../config/colors";
 import routes from "../navigation/routes";
 import storage from "../auth/storage";
 
 function IntroSliderScreen({ navigation }) {
+  let [fontsLoaded] = useFonts({
+    "Catamaran-Thin": Catamaran_100Thin,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   const renderItem = ({ item }) => {
     return (
       <View style={[styles.slide, { backgroundColor: item.bg }]}>
@@ -55,7 +65,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.medium,
-    fontSize: 20,
+    fontFamily: "Catamaran-Thin",
+    fontSize: 22,
     marginHorizontal: 40,
     textAlign: "center",
   },

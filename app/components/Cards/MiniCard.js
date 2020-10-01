@@ -6,6 +6,17 @@ import Text from "../Text";
 import colors from "../../config/colors";
 
 function Card({ imageUrl, missing, onPress, subtitle, thumbnailUrl, title }) {
+  const splitted = title.split(" ");
+  const titleLength = splitted.length;
+  let titleLines;
+
+  if (titleLength > 1) {
+    titleLines = 2;
+    splitted[0] += "\n";
+  } else titleLines = 1;
+
+  title = splitted.join(" ");
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
@@ -17,7 +28,7 @@ function Card({ imageUrl, missing, onPress, subtitle, thumbnailUrl, title }) {
         />
 
         <View style={styles.details}>
-          <Text numberOfLines={2} style={styles.title}>
+          <Text numberOfLines={titleLines} style={styles.title}>
             {title}
           </Text>
           {subtitle !== "" && (

@@ -8,6 +8,7 @@ import Text from "../Text";
 import { imagePath } from "../../utility/imagePath";
 
 function MarketCard({ ingredient, onPress }) {
+  const name = ingredient.name.split(" ").join("\n");
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
@@ -19,7 +20,7 @@ function MarketCard({ ingredient, onPress }) {
         />
         <View style={styles.details}>
           <Text numberOfLines={2} style={styles.title}>
-            {ingredient.name}
+            {name}
           </Text>
           <AddOrRemoveButton ingredient={ingredient} />
         </View>

@@ -15,12 +15,14 @@ function AboutScreen() {
       <OpenUrlLink
         text="yanivgoldfrid.com"
         style={styles.website}
+        touchable
         url="https://www.yanivgoldfrid.com"
       />
       <View style={styles.line} />
       <OpenUrlLink
         text="Privacy Policy"
         style={styles.externalLink}
+        touchable
         url="https://cocktailme.yanivgoldfrid.com/privacy"
       />
       <Text style={styles.attribution}>Attribution:</Text>
@@ -30,12 +32,14 @@ function AboutScreen() {
           text="Freepik"
           style={styles.externalLink}
           url="https://www.flaticon.com/authors/freepik"
+          color={colors.dark}
         />{" "}
         from{" "}
         <OpenUrlLink
           text="www.flaticon.com"
           style={styles.externalLink}
           url="https://www.flaticon.com/"
+          color={colors.dark}
         />
       </Text>
       <Text>
@@ -44,22 +48,16 @@ function AboutScreen() {
           text="www.freepik.com"
           style={styles.externalLink}
           url="https://www.freepik.com/vectors/design"
+          color={colors.dark}
         />
       </Text>
       <Text>
-        Background photo created by yingyang -{" "}
+        Glasses photo created by freepik -{" "}
         <OpenUrlLink
           text="www.freepik.com"
           style={styles.externalLink}
-          url="https://www.freepik.com/photos/background"
-        />
-      </Text>
-      <Text>
-        People photo created by senivpetro -{" "}
-        <OpenUrlLink
-          text="www.freepik.com"
-          style={styles.externalLink}
-          url="https://www.freepik.com/photos/people"
+          url="https://www.freepik.com/photos/glasses"
+          color={colors.dark}
         />
       </Text>
     </View>
@@ -78,8 +76,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   externalLink: {
-    color: colors.dark,
-    fontWeight: "normal",
     textDecorationLine: "underline",
   },
   line: {
@@ -89,6 +85,7 @@ const styles = StyleSheet.create({
   },
   website: {
     alignSelf: "center",
+    fontSize: 19,
   },
 });
 

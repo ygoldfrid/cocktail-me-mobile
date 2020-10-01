@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import colors from "../../config/colors";
+import Link from "../../components/Link";
 import routes from "../../navigation/routes";
 import Text from "../../components/Text";
 
@@ -11,9 +11,10 @@ function SuccessReset({ navigation }) {
       <Text style={styles.instructions}>
         Your password has been reset successfully!
       </Text>
-      <TouchableOpacity onPress={() => navigation.navigate(routes.LOGIN)}>
-        <Text style={styles.link}>Back to Login</Text>
-      </TouchableOpacity>
+      <Link
+        onPress={() => navigation.navigate(routes.LOGIN)}
+        text="Back to Login"
+      />
     </View>
   );
 }
@@ -25,10 +26,6 @@ const styles = StyleSheet.create({
   instructions: {
     textAlign: "center",
     marginBottom: 10,
-  },
-  link: {
-    color: colors.primary,
-    textAlign: "center",
   },
 });
 

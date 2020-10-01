@@ -1,10 +1,18 @@
 import React, { useCallback } from "react";
-import { Linking, StyleSheet } from "react-native";
+import { AppLoading } from "expo";
+import { Linking, StyleSheet, TouchableOpacity } from "react-native";
+import { useFonts, Catamaran_500Medium } from "@expo-google-fonts/catamaran";
 
 import colors from "../config/colors";
 import Text from "./Text";
 
-const OpenUrlLink = ({ text, url, style }) => {
+const OpenUrlLink = ({
+  color = colors.primary,
+  style,
+  text,
+  touchable,
+  url,
+}) => {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
     const supported = await Linking.canOpenURL(url);
@@ -18,8 +26,21 @@ const OpenUrlLink = ({ text, url, style }) => {
     }
   }, [url]);
 
+  let [fontsLoaded] = useFonts({ "Catamaran-Medium": Catamaran_500Medium });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  if (touchable)
+    return (
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={[styles.link, style, { color }]}>{text}</Text>
+      </TouchableOpacity>
+    );
+
   return (
-    <Text style={[styles.link, style]} onPress={handlePress}>
+    <Text style={[styles.link, style, { color }]} onPress={handlePress}>
       {text}
     </Text>
   );
@@ -27,8 +48,8 @@ const OpenUrlLink = ({ text, url, style }) => {
 
 const styles = StyleSheet.create({
   link: {
-    color: colors.primary,
-    fontWeight: "bold",
+    fontFamily: "Catamaran-Medium",
+    fontSize: 18,
   },
 });
 
